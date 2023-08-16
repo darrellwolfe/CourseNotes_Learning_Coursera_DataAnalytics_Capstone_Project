@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $connectionString = "Server=localhost;Database=YourDatabase;Integrated Security=True;"
 $connection = New-Object System.Data.SqlClient.SqlConnection
 $connection.ConnectionString = $connectionString
@@ -23,3 +24,30 @@ WITH (
     $command.ExecuteNonQuery()
     $connection.Close()
 }
+=======
+$connectionString = "Server=localhost;Database=YourDatabase;Integrated Security=True;"
+$connection = New-Object System.Data.SqlClient.SqlConnection
+$connection.ConnectionString = $connectionString
+
+$command = $connection.CreateCommand()
+
+# Specify the folder path and filter for files following the naming pattern
+$folderPath = 'C:\Users\darre\OneDrive\Documents\Coursera_Capstone_Project\CSV'
+$csvFiles = Get-ChildItem $folderPath -Filter "*-divvy-tripdata.csv"
+
+foreach ($csvFile in $csvFiles) {
+    $sql = @"
+BULK INSERT Rides
+FROM '$($csvFile.FullName)'
+WITH (
+    FIELDTERMINATOR = '\t',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2
+);
+"@
+    $command.CommandText = $sql
+    $connection.Open()
+    $command.ExecuteNonQuery()
+    $connection.Close()
+}
+>>>>>>> 24b99bb47f90bc8d6f4d6572d35b2d444c47e7b1
