@@ -9,9 +9,9 @@ CREATE TABLE [dbo].[Cyclistic_divvy_tripdata] (
     start_station_id VARCHAR(MAX),
     end_station_name VARCHAR(MAX),
     end_station_id VARCHAR(MAX),
-    start_lat DECIMAL(10, 8),
-    start_lng DECIMAL(10, 8),
-    end_lat DECIMAL(10, 8),
-    end_lng DECIMAL(10, 8),    
+    start_lat DECIMAL(22, 20),
+    start_lng DECIMAL(22, 20),
+    end_lat DECIMAL(22, 20),
+    end_lng DECIMAL(22, 20),    
     member_casual VARCHAR(MAX)
 );
