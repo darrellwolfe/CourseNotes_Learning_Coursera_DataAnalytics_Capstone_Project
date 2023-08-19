@@ -12,6 +12,12 @@ Coursera offered the following summary of this dataset and case study:
 
 > "This is an opportunity to analyze historical bicycle trip data in order to identify trends. Understanding how casual riders behave differently from riders with paid memberships is important. This analysis will help executives to make decisions about marketing programs and strategies to convert casual riders to riders with annual memberships. Refer to Case Study 1: How Does a Bike-Share Navigate Speedy Success? for more details about this case study.-- In this case study, you will perform data analysis for a fictional bike-share company in order to help them attract more riders. Along the way, you will perform numerous real-world tasks of a junior data analyst by following the steps of the data analysis process: Ask, Prepare, Process, Analyze, Share, and Act. By the time you are done, you will have a portfolio-ready case study to help you demonstrate your knowledge and skills to potential employers!"
 
+(Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study,
+the datasets are appropriate and will enable you to answer the business questions. The data has been made available by
+Motivate International Inc. under this license.) This is public data that you can use to explore how different customer types are
+using Cyclistic bikes.
+
+
 ### Exploring The Data
 
 Coursera provided a dataset from "[divvy-tripdata](https://divvy-tripdata.s3.amazonaws.com/index.html)" under public license to be used under the alias of Cyclistic Bike-Share, a fictitious company.
@@ -158,6 +164,66 @@ FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\
 
 *I found that RStudio (at least with my current settings) would not indicate whether the SQL script was still running. A short hardly-noticable flash would be the only indication the script was complete. Because of this, I frequently found myself trying to run the next script and getting an error that the connection was busy. Because of this, I also couldn't run a query to see if the data was present (because the connection was still busy writing it). Due to this ambiguity, I found that it was easier to wait a few moments for the screen flash, and use Visual Studio 2022 to view the data to see if it had been completed, before moving on to the next line.*
 
+TWO issues inserting 
+1. CSV formatting m/d/yyyy hh:mm
+2. Duplicate data broke my Primary Key, so I rebuilt the table without it and I'll sort out duplicate data first.
+
 4\. With all the data imported...
 
 This
+
+
+
+Ask
+Three questions will guide the future marketing program:
+1. How do annual members and casual riders use Cyclistic bikes differently?
+2. Why would casual riders buy Cyclistic annual memberships?
+3. How can Cyclistic use digital media to influence casual riders to become members?
+
+Moreno has assigned you the first question to answer: How do annual members and casual riders use Cyclistic bikes
+differently?
+You will produce a report with the following deliverables:
+1. A clear statement of the business task
+2. A description of all data sources used
+3. Documentation of any cleaning or manipulation of data
+4. A summary of your analysis
+5. Supporting visualizations and key findings
+6. Your top three recommendations based on your analysis
+
+
+Calculations to run
+mean ride length
+max ride length
+median ride length
+
+MODE is Excel, in SQL we can:
+SELECT ride_length
+FROM (
+  SELECT ride_length,
+         ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) AS Rank
+  FROM [dbo].[Cyclistic_divvy_tripdata]
+  GROUP BY ride_length
+) AS Subquery
+WHERE Rank = 1;
+
+
+Slice these by members vs casual riders, including days of the week as slicers. 
+
+What is each days' average/median and how does it look sliced by rider types (members/casual)
+
+
+
+
+Rebuild this notes doc with the data analysis process steps: 
+
+Ask, Prepare, Process, Analyze, Share and Act. 
+
+
+
+
+
+
+
+
+
+
