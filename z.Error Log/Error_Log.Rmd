@@ -1,0 +1,31 @@
+# Error Log
+
+## BULK INSERT FAILURE: When running BULK INSERT SQL script, failed on 202210
+
+`FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202210-divvy-tripdata.csv'`
+
+GPT-4: "Hey Darrell,
+
+> It looks like you're encountering a data conversion error during a BULK INSERT in SQL Server. This often happens when the data in the CSV file doesn't match the data type of the corresponding column in the database.
+>
+> Here's a quick summary of what could be going on:
+>
+> 1.  **Type Mismatch**: Check the data in row 2, column 3 of the CSV. Does it match the expected data type of the corresponding column in the SQL table? If it's supposed to be an integer and there's a string, that's likely the problem.
+>
+> 2.  **Invalid Character**: Sometimes, special characters or symbols that are not recognized by the specified codepage can cause this error.
+>
+> 3.  **Codepage Mismatch**: If the CSV is encoded with a different codepage than what's specified in the BULK INSERT command, it could lead to this error.
+>
+> 4.  **Format Issues**: If the CSV file has a different format or delimiter than what's expected (like using a comma instead of a semicolon), that can cause issues as well.
+>
+> A common solution here might be to examine the offending row and column in the CSV to see if the value there looks unusual or mismatched to the SQL column type. If you've confirmed the data type and characters are appropriate, you might want to look at the codepage or formatting.
+>
+> Would you like more specific guidance on how to resolve this issue, such as code examples or detailed steps to follow?"
+
+## BULK INSERT DIGNOSTIC: 
+
+Since I know that 202201 through 202209 worked flawlessly, I am comparing 09 to 10 to see what's different, and look for invalid characters.
+
+-   Comparing the "custom" formatting in both CSVs for the date-time columns, both appear to be the same `m/d/yyy h:mm` format.
+
+-   
