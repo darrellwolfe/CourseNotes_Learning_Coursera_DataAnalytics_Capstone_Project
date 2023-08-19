@@ -1,9 +1,4 @@
 -- !preview conn=conn
 
-Select *
-
---COUNT(ride_id)
-
-From dbo.Cyclistic_divvy_tripdata
-
---Order By started_at DESC
+SELECT TOP 10 *
+FROM dbo.Cyclistic_divvy_tripdata

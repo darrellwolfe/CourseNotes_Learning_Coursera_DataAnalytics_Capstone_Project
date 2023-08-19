@@ -28,7 +28,7 @@ FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\
 
 
 BULK INSERT Cyclistic_divvy_tripdata
-FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202210-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202209-divvy-tripdata.csv'
 
 WITH (
    FIELDTERMINATOR = ',',

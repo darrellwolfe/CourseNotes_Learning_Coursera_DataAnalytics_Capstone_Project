@@ -22,7 +22,7 @@ GPT-4: "Hey Darrell,
 >
 > Would you like more specific guidance on how to resolve this issue, such as code examples or detailed steps to follow?"
 
-## BULK INSERT DIGNOSTIC: 
+## BULK INSERT DIGNOSTIC:
 
 Since I know that 202201 through 202209 worked flawlessly, I am comparing 09 to 10 to see what's different, and look for invalid characters.
 

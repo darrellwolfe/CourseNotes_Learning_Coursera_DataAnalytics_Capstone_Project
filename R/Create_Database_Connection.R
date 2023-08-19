@@ -14,3 +14,4 @@ conn <- dbConnect(odbc(),
                   Server = "LAPTOP-76LHVPRQ\\SQLEXPRESS",
                   Database = "Coursera_Capstone_Project",
                   Trusted_Connection = "True")
+
