@@ -65,7 +65,18 @@ DELETE FROM CTE WHERE rn > 1;
 
 
 
+ALTER TABLE [dbo].[Cyclistic_divvy_tripdata]
+ADD season VARCHAR(20);
 
+
+UPDATE [dbo].[Cyclistic_divvy_tripdata]
+SET season = 
+  CASE 
+    WHEN MONTH(started_at) IN (3, 4, 5) THEN 'Spring'
+    WHEN MONTH(started_at) IN (6, 7, 8) THEN 'Summer'
+    WHEN MONTH(started_at) IN (9, 10, 11) THEN 'Autumn'
+    ELSE 'Winter'
+  END;
 
 
 
