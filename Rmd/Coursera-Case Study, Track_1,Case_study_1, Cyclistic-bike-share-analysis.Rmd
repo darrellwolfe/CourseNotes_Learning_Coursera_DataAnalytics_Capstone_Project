@@ -1,0 +1,847 @@
+---
+title: 'Cyclistic Membership Campaign'
+subtitle: 'A Coursera Capstone Case-Study, Track_1,Case_study_1, Cyclistic-bike-share-analysis' 
+author: 'Darrell Wolfe'
+date: 'TBD'
+category:
+- Data Analytics
+- Excl
+- SQL
+- R
+- Rmd
+- Tableau
+- Coursera Data Analytics Capstone Project
+output: html_document
+---
+
+## Capstone Project
+
+### Coursera-Case Study, Track_1,Case_study_1, Cyclistic-bike-share-analysis
+
+As part of the [Google Data Analytics Professional Certificate](https://www.coursera.org/professional-certificates/google-data-analytics), I am to complete 1 (or more) case studies as the capstone for the course.
+
+### Google Data Analytics Capstone: Complete a Case Study
+
+Case Studies offered two tracks (1) chose one of two case studies to use and follow the instructions to work through the data analysis and visualization or (2) chose your own dataset. As a starter, I chose track 1, dataset 1.
+
+### Track 1, Case study 1, : Cyclistic bike-share analysis
+
+Coursera offered the following summary of this dataset and case study:
+
+> "This is an opportunity to analyze historical bicycle trip data in order to identify trends. Understanding how casual riders behave differently from riders with paid memberships is important. This analysis will help executives to make decisions about marketing programs and strategies to convert casual riders to riders with annual memberships. Refer to Case Study 1: How Does a Bike-Share Navigate Speedy Success? for more details about this case study.-- In this case study, you will perform data analysis for a fictional bike-share company in order to help them attract more riders. Along the way, you will perform numerous real-world tasks of a junior data analyst by following the steps of the data analysis process: Ask, Prepare, Process, Analyze, Share, and Act. By the time you are done, you will have a portfolio-ready case study to help you demonstrate your knowledge and skills to potential employers!"
+
+(Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study, the datasets are appropriate and will enable you to answer the business questions. The data has been made available by Motivate International Inc. under this license.) This is public data that you can use to explore how different customer types are using Cyclistic bikes.
+
+
+------------------------------------------------------------------------
+
+## Tools
+
+Throughout this project the following tools were utilized:
+
+*   Microsoft Excel
+  +   Microsoft Power Query (Excel)
+  +   Microsoft Data Model + DAX
+  +   Microsoft Power Pivot   
+*   Microsoft SQL Server Express
+*   Microsoft Visual Studio 2022
+*   Google Big Query (attempted, not used)
+*   Posit RStudio
+*   Tableau Public 2.1
+
+
+## Programming/Analytics Languages
+
+*   SQL
+*   R
+*   DAX
+
+
+------------------------------------------------------------------------
+
+# Ask, Prepare, Process, Analyze, Share and Act.
+
+Coursera: "Along the way, you will perform numerous real-world tasks of a junior data analyst by following the steps of the data analysis process: Ask, Prepare, Process, Analyze, Share, and Act."
+
+------------------------------------------------------------------------
+
+## Ask
+
+##### Guiding questions
+
+-   What is the problem you are trying to solve?
+-   How can your insights drive business decisions?
+
+##### Key tasks 
+
+1.    Identify the business task 
+2.    Consider key stakeholders
+
+##### *Deliverable: A clear statement of the business task*
+
+In this fictitious example, Lily Moreno (Director of Marketing) has asked my marketing analytics team to help analyze historical data for a marketing campaign. The Cyclistic finance analysts have already concluded that members are more profitable than casual riders and the Moreno is convinced that the company's future success depends on maximizing memberships.
+
+Moreno is asking three questions of her teams to "guide the future marketing program":
+
+1.  How do annual members and casual riders use Cyclistic bikes differently?
+2.  Why would casual riders buy Cyclistic annual memberships?
+3.  How can Cyclistic use digital media to influence casual riders to become members?
+
+Moreno has assigned me the first question to answer: "How do annual members and casual riders use Cyclistic bikes differently?"
+
+She's asked for a detailed report clearly showing my findings and recommendations.
+
+Marketing Team Goal: Design marketing strategies aimed at converting casual riders into annual members. In order to do that, however, the marketing analyst team needs to better understand how annual members and casual riders differ, why casual riders would buy a membership, and how digital media could affect their marketing tactics. Moreno and her team are interested in analyzing the Cyclistic historical bike trip data to identify trends.
+
+------------------------------------------------------------------------
+
+##### Business Task
+
+Ladies and Gentlemen of the Board, the Finance Analysts have identified that annual members are more profitable than casual riders, our marketing team has taken the next step to analyze our historical data in order to develop a marketing strategy to maximize memberships.
+
+Director Moreno has identified three key components:
+
+1.  Investigating how annual members and casual riders utilize Cyclistic bikes differently.
+
+2.  Unearthing the reasons that might motivate casual riders to invest in Cyclistic annual memberships.
+
+3.  Exploring innovative ways to leverage digital media, aiming to convert casual riders into committed members.
+
+With these actions, we intend to shape marketing strategies that resonate with our riders' preferences and patterns, increasing memberships enhancing profitability.
+
+My task today is to address question number 1.
+
+> "How do members and casual riders use Cyclistic differently?"
+
+------------------------------------------------------------------------
+
+## Prepare
+
+##### Guiding questions
+
+-   Where is your data located?
+-   How is the data organized?
+-   Are there issues with bias or credibility in this data? Does your data ROCCC?
+-   How are you addressing licensing, privacy, security, and accessibility?
+-   How did you verify the data's integrity?
+-   How does it help you answer your question?
+-   Are there any problems with the data?
+
+
+##### Key tasks 
+
+1.    Download data and store it appropriately.
+2.    Identify how it’s organized.
+3.    Sort and filter the data.
+4.    Determine the credibility of the data.
+
+
+##### *Deliverable: A description of all data sources used.*
+
+### The Data: Cyclistic Bike-Share, a fictitious company.
+
+Coursera provided a dataset from "[divvy-tripdata](https://divvy-tripdata.s3.amazonaws.com/index.html)" under public license to be used under the alias of Cyclistic Bike-Share, a fictitious company.
+
+The data is hosted on an Amazon AWS site as multiple CSVs.
+
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjy2IbyxmBu5Kh4vx12pGMY0g5IT3ntKxH4sM9YUhFovFLYE680Lk9yufO77Xr8xKr3rNflsXaSLGFY7cefIeI6OF4rU4qb-Laghls3JmZtQYfbO4oeCI-mgvl8ReZX5_pBjG_G69XTQxrw1GVrtOBDH3j-XhTMA4wZIaCpe6pubs7vcRpVu0Pkgf9tYPTP/s1170/The_Data_CSV_Location.jpg)
+
+------------------------------------------------------------------------
+
+### Exploring the CSV data for Cyclistic Bike-Share, a fictitious company.
+
+------------------------------------------------------------------------
+
+#### Reviewing the CSV
+
+I chose a single month CSV to explore to wrap my head around what data exists within the dataset and what issues and/or discoveries it might reveal.
+
+-   Gathering the Data: The data comes in zip files, mostly organized by month, except for a few quarter files, but those have older data and I wanted the most current available. One of the tasks I will have is to determine how I will migrate those individual months data into a single queryable table.
+
+-   First, I saved the CSV as a macro-enabled Excel workbook to review the data before importing it. After migrating to Macro Enabled workbook file type, I tableized the data, and brought into Power Query, then loaded it to Connection Only, Add to Data Model. This way I can see what I'm working with.
+
+-   Second, inside the Data Model, I established a DAX formula to count distinct Ride IDs.
+
+-   Third, I inserted several Pivot Tables into a dashboard to see what types of information slices were readily available within the dataset. I discovered Members vs Casual Riders, Bike Types, Stations, and Lat-Longs.
+
+-   Primary Key: ride_id is the Primary Key for the dataset. It appears the numbers are 16 digits long, however, I wanted to know if any were more than 16 digits long. I took the tableized data and brought it up into Excel's native Power Query, and added a column to extract the length of the IDs. The checked the filter on the new column to look for any non-16 items. I found many IDs less than and greater than 16, sorting descending, I found the largest was 27. This gave me context to ensure that when I created a table, the Primary Key will need to have a character length of at least 27, and since this is only one of the datasets, I decided to provide buffer room and make it 60.
+
+    -   ride_id VARCHAR(16) PRIMARY KEY *(vs)* ride_id VARCHAR(60) PRIMARY KEY,
+
+*Note: I eventually scraped the idea of using a Primary Key in this table, which I will discuss further in this article.*
+
+-   In this preliminary review of a single month in Excel, I discovered the following:
+
+    -   People use classic and electric bikes about the same, and just over half of all riders are Members, the rest are casual users (almost half/half). Nearly all of the 1,256 Stations are used less than 1.00% of the time, with only one exception at Streeter Dr & G. This one stop may require further review.
+
+        -   Casual (41.86%) vs Members (58.14%): Not a far enough gap to be significant.
+
+        -   docked_bike is rarely used 2.08%: If this plays out should this either be eliminated or advertised more?
+
+        -   classic_bike (43.57%) vs electric_bike (54.35%): Not a far enough gap to be significant.
+
+        -   There are 1,265 Start/Stop stations; however, 16.1557% of all stops occured at a non-station.
+
+            -   Only one station had stops of more than 1% of total rides, Streeter Dr & G
+
+![Excel_DataModel_DashboardOverview](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimwEZ8i_wf5JjjOeTcuSXQdwONFNkSwPSNfiPh1Oeh9y8zEjZTh2hyDXJr61_fDOPDBBJcPLkiHn9luXgFNPrZanpjMGbp2w16NO5wi9eVXVcobQti1XOf06lqUIR_1I5bPN87PtKdNqDE9UxuhRi9l63In_L17D2JjlGgC38UCS2rTK00pJfGNoHVIb-0/s820/Excel_DataModel_DashboardOverview.jpg)
+
+![Excel_DataModel_Dashboard_Stations 1](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFcIsfYjrkcxo42hVQBgEYPFSrQ8Q4i2betmnNexmzdY6TbBLdNuMRNSqi613QYqPAN3C40uXzYivixsCcePn7F6ANQ3X540JtpNJO-9QRQFAut8-4kdgscTsacJv9WHIGpjVBR5uZfRqOqMkIgDW8gZE0jdk07dFsFG_LsB4_W6H5p1N_WMev9mPkMA5Q/s1173/Excel_DataModel_Dashboard_Stations%201.jpg)
+
+![Excel_DataModel_Dashboard_Stations 2](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPzoVhGXEIUCBu9W68ycvYEQTOHOzsUEgeRclqbLZZcZwtvhIcALLH1gJf1ZY2Yicw-pTyWNUiNhN56CN9EqqYC1ErJu6_ee21aZBkiB-M6aw-veWqpkgL3jWbEMJqukbvzwu2KG1CjRcDtXvZHe60suKajqif75v56rE9EaWSANSWtE8e9uCkAVk-Wnca/s412/Excel_DataModel_Dashboard_Stations%202.jpg)
+
+
+
+------------------------------------------------------------------------
+
+
+### Gathering and importing the data:
+
+Google's Big Query would not take even a single CSV, as the file size was too large. I was not interested in paying for Google Cloud to do this project, so I needed to find another option. While a CSV can hold multiple millions of rows of data, and Tableau can handle at least 10 million rows of data, Excel has a limit of 1,048,576 rows and 16,384 columns per sheet. Therefore, combining the 19 monthly files (January 1, 2022 through July 31, 2023) required a new work-around.
+
+------------------------------------------------------------------------
+
+#### Solution: Establishing a local database to work with the data
+
+I set up a database on my local PC, created a table, and imported the data into my own localized database for analysis.
+
+*Tools/Languages: Visual Studio 2022, SQL, CSVs on my local drive*
+
+1.    I used Visual Studio 2022 to establish a new database on my local PC: "Coursera_Capstone_Project".
+2.    I created a table on the new database for this data: "Cyclistic_divvy_tripdata"
+3.    I stored the CSVs in a dedicated location on my local PC.
+4.    I used a SQL script to import the CSVs into the table (with a few kinks to work out along the way)
+
+------------------------------------------------------------------------
+
+##### 1 Created a new database
+
+Using Visual Studio 2022, I created a database dedicated to this project (and possibly others).
+
+![Visual Studio 2022 New Database](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKBE_Rpm9qyz0mRToG2MkmEHA5l-2AvPGSDIGyLDCK1yoAfr6uvWT0xk4zxbPZeyvEZrQHmiO1RLgaQE0TvbURbcxU1OUGw8H7uETvMz43LxmSVBe9ZaPVwD9QnA6Jj1aVnDpjrqezKGrp3fupjkWojwE4W5iJ4y2qYq0sS2gq7DruvyZZSvMudIWEg_09/s334/VisualStudio2022_CreateDatabase.jpg)
+
+
+------------------------------------------------------------------------
+
+##### 2 SQL Scripting the new table
+
+By copying the CSV headers into my Visual Studio 2022 code editor, and them using them as a basis for the new table, I was able to create a table situated to received the CSV data. 
+
+*Note: After working with the data, I deleted and rebuilt the table with new specifications, including getting rid of the primary key.*
+
+```{sql eval=FALSE, include=TRUE}
+-- !preview conn=conn
+
+CREATE TABLE [dbo].[Cyclistic_divvy_tripdata] (
+    ride_id VARCHAR(60), 
+    rideable_type VARCHAR(MAX),
+    started_at DATETIME,
+    ended_at DATETIME,
+    start_station_name VARCHAR(MAX),
+    start_station_id VARCHAR(MAX),
+    end_station_name VARCHAR(MAX),
+    end_station_id VARCHAR(MAX),
+    start_lat DECIMAL(22, 20),
+    start_lng DECIMAL(22, 20),
+    end_lat DECIMAL(22, 20),
+    end_lng DECIMAL(22, 20),    
+    member_casual VARCHAR(MAX)
+);
+
+--  PRIMARY KEY became an issue while importing data, removing Primary Key requirement for this table. I handled this by removing duplicates later.
+
+```
+
+
+------------------------------------------------------------------------
+
+#### 3. Importing the CSVs into the database
+
+To accomplish this step, I ran a BULK INSERT in SQL via Visual Studio 2022, replacing each `FROM` line with the directions to the individual CSVs. After checking with my resources, I did find a way to use  Power Shell to automated this; however, I didn't understand it well enough for this task. I'll be working on learing Power Shell commands for future use.
+
+*Tools/Languages: Visual Studio 2022, SQL, CSVs*
+
+**Notes about RStudio, SQL, and why I worked with Visual Studio 2022 for this step.** *I originally started this step inside RStudio with a connection to the database and new table. However, I found that RStudio (at least with my current settings) would not indicate whether the SQL script was still running. A short hardly-noticable flash would be the only indication the script was complete. Because of this, I frequently found myself trying to run the next script and getting an error that the connection was busy. Because of this, I also couldn't run a query to see if the newest data was present (because the connection was still busy writing it). Due to this ambiguity, I found that it was easier use Visual Studio 2022 to write the CSVs into the database, as it is designed for exactly this type of task.*
+
+I ran into two separate issues inserting the data into the new table.
+
+
+1.    Duplicate data broke my Primary Key, so I rebuilt the table without it and sorted out duplicate data in subsequent steps. 
+
+2.    CSV formatting `m/d/yyyy hh:mm`. In the first several CSVs, this was the native custom formatting for the columns `started_at` and `ended_at` as they came from the downloads. However, several subsequent CSVs were formatted as "General" without this custom formatting. As a result, the SQL script would code an error for mismatched types. To solve this issue, I copied the fomratting into these CSVs, resaved, and re-ran the scripts with no errors.
+
+  +   Sometimes this was caused by the ride_id showing up in one month because it "started" in that month but the ride ended the next day in the next month. The insertion process also caused several NULL rows. Both were sorted out in subsequent steps.
+
+3.    Refreshing the view of the data, sorted by date, DESC allowed me to confirm the new data had completed before moving on to the next CSV.
+
+##### BULK INSERT SQL Script
+
+```{sql eval=FALSE, include=TRUE}
+BULK INSERT Cyclistic_divvy_tripdata
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202209-divvy-tripdata.csv'
+
+WITH (
+   FIELDTERMINATOR = ',',
+   ROWTERMINATOR = '\n',
+   FIRSTROW = 2
+);
+
+/*
+I replaced the line with the new CSV for each of the months Jan 2022 through Aug 2023
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202201-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202202-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202203-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202204-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202205-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202206-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202207-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202208-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202209-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202210-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202211-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202212-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202301-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202302-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202303-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202304-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202305-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202306-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202307-divvy-tripdata.csv'
+FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202308-divvy-tripdata.csv'
+*/
+
+
+```
+
+
+##### BULK INSERT SQL Script ERROR
+
+![VisualStudio2022_BULKINSERT_ERROR](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQKE5WvVIVFvgMlcli63UU1K7DLke7yAjgA7pfFmfEfZkGSSbq_uZFzXCCAZ3dblP1WaOqVm6-0T5kBk9L8afXa8KXKX95VBXrbenYQwNFc8o5lPFcE0Bu6Op43Ng2qD1574cr_aBINA2ZXpy9z7uAHUBeA9SrawYpT12keXW7ifzsbP6sm4f5PN5FmDM8/s1921/VisualStudio2022_BULK_INSERT_ERRORs.jpg)
+
+##### BULK INSERT SQL Script: View Data
+
+
+![VisualStudio2022_ViewData](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEEMbbvwMdIJnR4qjtHJ6JbHdEfKdJaFS0lQM-4bFZ_Ed0ewJRtiw1lX1t3tO-YCG-jPPs53cJEHyqamSvfwksgJ3BZek5fiVZk9K06xPAa1J1lo-QPfQuyvmCQdfU6593qStZ9ImmF8uU6QRQTS7zNutqElGcPzdEPCKQZe_o0jqYukUPl-2d0yHn6BAj/s1031/VisualStudio2022_ViewData.jpg)
+
+
+------------------------------------------------------------------------
+
+## Process
+
+
+##### Guiding questions
+
+-   What tools are you choosing and why?
+-   Have you ensured your data’s integrity?
+-   What steps have you taken to ensure that your data is clean?
+-   How can you verify that your data is clean and ready to analyze?
+-   Have you documented your cleaning process so you can review and share those results?
+
+
+##### Key tasks 
+
+1.    Check the data for errors.
+2.    Choose your tools.
+3.    Transform the data so you can work with it effectively.
+4.    Document the cleaning process.
+
+
+##### *Deliverable:Documentation of any cleaning or manipulation of data*
+
+
+------------------------------------------------------------------------
+
+### Transformations & Clean Up
+
+With all the data reviewed and imported in previous steps, I began adding transformations and clean up steps that would make the data easier to work with. After having issues with the Primary Key in previous steps, I set out to remove duplcates and NULLs from the dataset. I then began working with my data to add relevant extrapolations from the existing material.
+
+Still working in SQL inside of Visual Studio 2022, I worked through the following transformations.
+
+
+##### Clean up and transformation SQL Scripts
+
+```{sql eval=FALSE, include=TRUE}
+
+-- These read scripts allowed me to continually check my work
+-- Several other approaches were attempted but these proved the most useful.
+
+-- High Level Overview
+SELECT TOP 10 *
+FROM dbo.Cyclistic_divvy_tripdata
+ORDER BY started_at DESC
+
+-- Counts as checks
+SELECT
+rideable_type,
+COUNT(ride_id) AS Trips
+FROM dbo.Cyclistic_divvy_tripdata
+GROUP BY rideable_type;
+
+
+/*
+CLEAN UP STEPS
+*/
+
+-- Removed rows with all NULL values
+
+DELETE FROM [dbo].[Cyclistic_divvy_tripdata]
+WHERE ride_id IS NULL
+  AND rideable_type IS NULL
+  AND started_at IS NULL
+  AND ended_at IS NULL
+  AND start_station_name IS NULL
+  AND member_casual IS NULL;
+
+-- Removed duplicate ride_id, as these are assumed to be unique to each ride.
+
+WITH CTE AS (
+  SELECT 
+    ROW_NUMBER() OVER (PARTITION BY ride_id ORDER BY ride_id) AS rn,
+    *
+  FROM [dbo].[Cyclistic_divvy_tripdata]
+)
+DELETE FROM CTE WHERE rn > 1;
+
+
+-- This read script allowed for:
+-- checking for duplicate ride_id since this was part of the reason my bulk inserts weren't working according to the error messages
+-- Once I came to zero results, I knew my clean-up was working.
+WITH CTE AS (
+  SELECT 
+    ROW_NUMBER() OVER (PARTITION BY ride_id ORDER BY ride_id) AS rn,
+    *
+  FROM [dbo].[Cyclistic_divvy_tripdata]
+)
+
+SELECT *
+FROM CTE
+WHERE CTE.rn > 1
+
+
+
+/*
+TRANSFORMATION UP STEPS
+*/
+
+-- Added columns for a month number and year extrapolated from the start date
+ALTER TABLE [dbo].[Cyclistic_divvy_tripdata]
+ADD month_started_at INT,
+    year_started_at INT;
+    
+UPDATE [dbo].[Cyclistic_divvy_tripdata]
+SET month_started_at = MONTH(started_at),
+    year_started_at = YEAR(started_at);
+
+
+-- Added columns for ride_length and day of the week, 
+ALTER TABLE [dbo].[Cyclistic_divvy_tripdata]
+ADD ride_length INT,
+    day_of_week VARCHAR(9);
+
+UPDATE [dbo].[Cyclistic_divvy_tripdata]
+SET ride_length = DATEDIFF(MINUTE, started_at, ended_at), -- in minutes
+    day_of_week = DATENAME(WEEKDAY, started_at); -- returns the day of the week
+
+
+
+-- Added column for Month Name (as opposed to month number above)
+ALTER TABLE [dbo].[Cyclistic_divvy_tripdata]
+ADD month_name VARCHAR(20);
+
+UPDATE [dbo].[Cyclistic_divvy_tripdata]
+SET month_name = DATENAME(MONTH, started_at);
+
+-- GPT-4 tried to follow this with from parts, but we have the original date, so I changed this to be simpler.
+-- UPDATE [dbo].[Cyclistic_divvy_tripdata]
+-- SET month_name = DATENAME(MONTH, DATEFROMPARTS(year_started_at, month_started_at, 1));
+
+
+
+--Added column for the season the months are involved with, as this related to Bike Travel
+ALTER TABLE [dbo].[Cyclistic_divvy_tripdata]
+ADD season VARCHAR(20);
+
+UPDATE [dbo].[Cyclistic_divvy_tripdata]
+SET season = 
+  CASE 
+    WHEN MONTH(started_at) IN (3, 4, 5) THEN 'Spring'
+    WHEN MONTH(started_at) IN (6, 7, 8) THEN 'Summer'
+    WHEN MONTH(started_at) IN (9, 10, 11) THEN 'Autumn'
+    ELSE 'Winter'
+  END;
+  
+```
+
+
+
+------------------------------------------------------------------------
+
+## Analyze
+
+
+##### Guiding questions
+
+-   How should you organize your data to perform analysis on it?
+-   Has your data been properly formatted?
+-   What surprises did you discover in the data?
+-   What trends or relationships did you find in the data?
+-   How will these insights help answer your business questions?
+
+
+##### Key tasks 
+
+1.    Aggregate your data so it’s useful and accessible.
+2.    Organize and format your data.
+3.    Perform calculations.
+4.    Identify trends and relationships.
+
+
+##### *Deliverable:A summary of your analysis*
+
+
+------------------------------------------------------------------------
+
+### Migrating to RStudio for Analysis
+
+With the table now ready for review, I then established a connection to the database in RStudio. Some of the above steps were actually completed after this step began, as I discovered more ways to slice the data (Ex: Adding Seasons)
+
+When working with RStudio connected to a live database, you can open SQL Scripts with `-- !preview conn=conn`, which allow you to then view the results of the SQL within RStudio. This step is important in RStudio, as it allows the SQL Script to speak directly with the database. I worked in both SQL and R while working inside RStudio. However, I found most of the analysis steps easier in R, which is what I will present below.
+
+
+------------------------------------------------------------------------
+
+#### Establishing a database connection in RStudio
+These packages are not all required for the connection, but were evetually helpful in my analysis, so if you are repeating these steps, you will want to use them.
+
+```{r eval=FALSE, include=TRUE}
+install.packages("DBI")
+install.packages("odbc")
+install.packages("RODBC")
+install.packages("tidyverse")
+install.packages("ggplot2")
+
+library(DBI)
+library(odbc)
+library(RODBC)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+
+connection <- odbcDriverConnect("driver={SQL Server};server=LAPTOP-76LHVPRQ\\SQLEXPRESS;database=Coursera_Capstone_Project;trusted_connection=true")
+
+Cyclistic_df <- sqlFetch(connection, "dbo.Cyclistic_divvy_tripdata")
+
+write.csv(Cyclistic_df, "C:/Users/darre/OneDrive/Documents/!Datasets/Cyclistic_divvy_tripdata CSVs/Final Dataset/Cyclistic_df.csv", row.names = FALSE)
+
+
+# This did not work:Server = "LAPTOP-76LHVPRQ\SQLEXPRESS",
+# That worked! Server = "LAPTOP-76LHVPRQ\\SQLEXPRESS",
+# One of the quirks of R is that some items you expect to work `=` require double `==`.
+# Backslashes must be doubled `\` becomes `\\`. I also learned changing them to forward slashes works as well for CSV file paths.
+
+```
+
+*Note: At first, this code would not work, I checked my resources, and found that even though the actual file path has one backslash, the R code required a double backslash, in much the same way it requires `==` when using logical code.*
+
+![RStudio_Database_Connection](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEit69kcpgx0KFlcrExl3ruir4c8v2-gSmukfx5C1_AqTJx7txNRume-jg4jR2uyOsY4wq5QIDQ1AhBKfKd8lzgs6-EcqW8u9uY-pfQ54MIoRFmnw1USys2WZ3lI8oZzdvBQKKBbwmwJ1gnoDzOKEv9HyD31pMa2atNolGj1-Uit9-Rk55ZoCRyrb4dyzbr2/s378/RStudio_Database_Connection.jpg)
+
+------------------------------------------------------------------------
+
+##### Example: SQL inside RStudio
+
+This will only work after a connection to the database is established.
+
+```{sql eval=FALSE, include=TRUE}
+
+-- !preview conn=conn
+
+SELECT TOP 10 *
+FROM dbo.Cyclistic_divvy_tripdata
+ORDER BY started_at DESC;
+
+```
+
+
+
+
+------------------------------------------------------------------------
+
+##### Analysis: Initials Exploration
+
+These worked as a proof that the data was loaded and showed me some initial calculations were working.
+
+```{r eval=FALSE, include=TRUE}
+colnames(Cyclistic_df)
+
+str(Cyclistic_df)
+
+total_rides <- nrow(Cyclistic_df)
+
+mean(Cyclistic_df$ride_length)
+
+median(Cyclistic_df$ride_length)
+
+max(Cyclistic_df$ride_length)
+
+
+```
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+Cyclistic_df %>%
+  group_by(member_casual) %>%
+  summarise(max_ride_length = max(ride_length, na.rm = TRUE))
+
+Cyclistic_df %>%
+  group_by(member_casual) %>%
+  summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
+
+Cyclistic_df %>%
+  group_by(member_casual) %>%
+  summarise(median_ride_length = median(ride_length, na.rm = TRUE))
+
+```
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+Cyclistic_df %>%
+  group_by(member_casual, day_of_week) %>%
+  summarise(max_ride_length = max(ride_length, na.rm = TRUE))
+
+Cyclistic_df %>%
+  group_by(member_casual, day_of_week) %>%
+  summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
+
+Cyclistic_df %>%
+  group_by(member_casual, day_of_week) %>%
+  summarise(median_ride_length = median(ride_length, na.rm = TRUE))
+
+```
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+Cyclistic_df %>%
+  group_by(member_casual, rideable_type) %>%
+  summarise(max_ride_length = max(ride_length, na.rm = TRUE))
+
+Cyclistic_df %>%
+  group_by(member_casual, rideable_type) %>%
+  summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
+
+Cyclistic_df %>%
+  group_by(member_casual, rideable_type) %>%
+  summarise(median_ride_length = median(ride_length, na.rm = TRUE))
+
+```
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+view(Cyclistic_df %>%
+       group_by(member_casual, month_started_at, month_name, season) %>%
+       summarise(max_ride_length = max(ride_length, na.rm = TRUE)))
+
+view(Cyclistic_df %>%
+       group_by(member_casual, month_started_at, month_name, season) %>%
+       summarise(mean_ride_length = mean(ride_length, na.rm = TRUE)))
+
+view(Cyclistic_df %>%
+       group_by(member_casual, month_started_at, month_name, season) %>%
+       summarise(median_ride_length = median(ride_length, na.rm = TRUE)))
+```
+
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+Members_Month_MAX <- Cyclistic_df %>%
+  group_by(member_casual, month_started_at, month_name, season) %>%
+  summarise(max_ride_length = max(ride_length, na.rm = TRUE))
+
+Members_Month_Mean <- Cyclistic_df %>%
+  group_by(member_casual, month_started_at, month_name, season) %>%
+  summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
+
+Members_Month_Median <- Cyclistic_df %>%
+  group_by(member_casual, month_started_at, month_name, season) %>%
+  summarise(median_ride_length = median(ride_length, na.rm = TRUE))
+
+```
+
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+ggplot(data = Members_Month_MAX) +
+  geom_point(mapping = aes(x = season, y = max_ride_length, color = member_casual, size = .25))
+
+ggplot(data = Members_Month_Mean) +
+  geom_point(mapping = aes(x = season, y = mean_ride_length, color = member_casual, size = .25))
+
+ggplot(data = Members_Month_Median) + 
+  geom_point(mapping = aes(x = season, y = median_ride_length, color = member_casual, size = .25))
+
+  #  geom_smooth(mapping = aes(x = season, y = median_ride_length, color = member_casual), method = lm, se = FALSE)
+
+
+
+
+ggsave("Mean_Ride_Length.jpg")
+ggsave("Max_Ride_Length.jpg")
+ggsave("Median_Ride_Length.jpg")
+
+
+```
+
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+ggplot(Cyclistic_df, aes(x = member_casual)) +
+  geom_bar() +
+  geom_text(aes(label = sprintf("%s", comma(..count..))), stat = 'count', vjust = -0.5)
+
+ggsave("Bar_Members_vs_Casual.jpg")
+
+```
+
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+
+```
+
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+
+```
+
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+
+```
+
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+
+```
+
+
+##### Analysis:
+
+
+```{r eval=FALSE, include=TRUE}
+
+
+```
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------
+
+## Share
+
+
+
+
+##### Guiding questions
+
+-   Were you able to answer the question of how annual members and casual riders use Cyclistic bikes differently? ● What story does your data tell? ● How do your findings relate to your original question? ● Who is your audience? What is the best way to communicate with them? ● Can data visualization help you share your findings? ● Is your presentation accessible to your audience?
+
+
+##### Key tasks 
+
+1.    1. Determine the best way to share your findings. 2. Create effective data visualizations. 3. Present your findings. 4. Ensure your work is accessible.
+
+
+##### *Deliverable:Supporting visualizations and key findings*
+
+
+
+------------------------------------------------------------------------
+
+## Act
+
+
+
+
+##### Guiding questions
+
+-   What is your final conclusion based on your analysis? ● How could your team and business apply your insights? ● What next steps would you or your stakeholders take based on your findings? ● Is there additional data you could use to expand on your findings?
+
+
+##### Key tasks 
+
+1.    1. Create your portfolio. 2. Add your case study. 3. Practice presenting your case study to a friend or family member.
+
+
+##### *Deliverable:Your top three recommendations based on your analysis*
+
+
+
+
+
+------------------------------------------------------------------------
+
+This
+
+Ask Three questions will guide the future marketing program: 1. How do annual members and casual riders use Cyclistic bikes differently? 2. Why would casual riders buy Cyclistic annual memberships? 3. How can Cyclistic use digital media to influence casual riders to become members?
+
+Moreno has assigned you the first question to answer: How do annual members and casual riders use Cyclistic bikes differently? You will produce a report with the following deliverables: 1. A clear statement of the business task 2. A description of all data sources used 3. Documentation of any cleaning or manipulation of data 4. A summary of your analysis 5. Supporting visualizations and key findings 6. Your top three recommendations based on your analysis
+
+Calculations to run mean ride length max ride length median ride length
+
+MODE is Excel, in SQL we can: SELECT ride_length FROM ( SELECT ride_length, ROW_NUMBER() OVER (ORDER BY COUNT(\*) DESC) AS Rank FROM [dbo].[Cyclistic_divvy_tripdata] GROUP BY ride_length ) AS Subquery WHERE Rank = 1;
+
+Slice these by members vs casual riders, including days of the week as slicers.
+
+What is each days' average/median and how does it look sliced by rider types (members/casual)
+
+Rebuild this notes doc with the data analysis process steps:
+
+Ask, Prepare, Process, Analyze, Share and Act.
