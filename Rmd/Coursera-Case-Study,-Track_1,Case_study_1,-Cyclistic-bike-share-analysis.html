@@ -1039,24 +1039,44 @@ ORDER BY started_at DESC;
 </code></pre>
 <hr />
 </div>
-<div id="analysis-initials-exploration" class="section level5">
-<h5>Analysis: Initials Exploration</h5>
+<div id="analysis-initial-exploration-verifying-the-dataset" class="section level5">
+<h5>Analysis: Initial Exploration, verifying the dataset</h5>
 <p>These worked as a proof that the data was loaded and showed me some
 initial calculations were working.</p>
+<ul>
+<li><p>colnames() - Reveals the column names of the dataset. Very handy
+to make sure you have the final dataset with all the transformations
+added in the SQL step.</p></li>
+<li><p>str() - Reveals the structure of the data, which can serve as a
+diagnostic tool, or an aide to help find clues in the dataset.</p></li>
+</ul>
 <pre class="r"><code>colnames(Cyclistic_df)
 
-str(Cyclistic_df)
+str(Cyclistic_df)</code></pre>
+</div>
+<div id="analysis-high-level-overview" class="section level5">
+<h5>Analysis: High Level Overview</h5>
+<ul>
+<li><p>nrow(): Total rows, which is total entries and ride_ids.</p></li>
+<li><p>max(): The longest ride in the dataset.</p></li>
+<li><p>mean(): The mean-average of all the ride times.</p></li>
+<li><p>median(): The middle ride of the ride times.</p></li>
+</ul>
+<pre class="r"><code>total_rides &lt;- nrow(Cyclistic_df)
 
-total_rides &lt;- nrow(Cyclistic_df)
+max(Cyclistic_df$ride_length)
 
 mean(Cyclistic_df$ride_length)
 
-median(Cyclistic_df$ride_length)
-
-max(Cyclistic_df$ride_length)</code></pre>
+median(Cyclistic_df$ride_length)</code></pre>
 </div>
-<div id="analysis" class="section level5">
-<h5>Analysis:</h5>
+<div id="analysis-ride-length-by-member-vs-causal" class="section level5">
+<h5>Analysis: Ride Length by Member vs Causal</h5>
+<ul>
+<li><p>Max:</p></li>
+<li><p>Mean:</p></li>
+<li><p>Median:</p></li>
+</ul>
 <pre class="r"><code>Cyclistic_df %&gt;%
   group_by(member_casual) %&gt;%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
@@ -1069,8 +1089,14 @@ Cyclistic_df %&gt;%
   group_by(member_casual) %&gt;%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))</code></pre>
 </div>
-<div id="analysis-1" class="section level5">
-<h5>Analysis:</h5>
+<div id="analysis-ride-length-by-member-vs-causal-split-by-day-of-the-week" class="section level5">
+<h5>Analysis: Ride Length by Member vs Causal, Split by Day of the
+Week</h5>
+<ul>
+<li><p>Max:</p></li>
+<li><p>Mean:</p></li>
+<li><p>Median:</p></li>
+</ul>
 <pre class="r"><code>Cyclistic_df %&gt;%
   group_by(member_casual, day_of_week) %&gt;%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
@@ -1083,8 +1109,14 @@ Cyclistic_df %&gt;%
   group_by(member_casual, day_of_week) %&gt;%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))</code></pre>
 </div>
-<div id="analysis-2" class="section level5">
-<h5>Analysis:</h5>
+<div id="analysis-ride-length-by-member-vs-casual-split-by-rideable-type" class="section level5">
+<h5>Analysis: Ride Length by Member vs Casual, split by Rideable
+Type</h5>
+<ul>
+<li><p>Max:</p></li>
+<li><p>Mean:</p></li>
+<li><p>Median:</p></li>
+</ul>
 <pre class="r"><code>Cyclistic_df %&gt;%
   group_by(member_casual, rideable_type) %&gt;%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
@@ -1097,8 +1129,14 @@ Cyclistic_df %&gt;%
   group_by(member_casual, rideable_type) %&gt;%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))</code></pre>
 </div>
-<div id="analysis-3" class="section level5">
-<h5>Analysis:</h5>
+<div id="analysis-ride-length-by-member-vs-casual-split-by-month-season" class="section level5">
+<h5>Analysis: Ride Length by Member vs Casual, Split by Month &amp;
+Season</h5>
+<ul>
+<li><p>Max:</p></li>
+<li><p>Mean:</p></li>
+<li><p>Median:</p></li>
+</ul>
 <pre class="r"><code>view(Cyclistic_df %&gt;%
        group_by(member_casual, month_started_at, month_name, season) %&gt;%
        summarise(max_ride_length = max(ride_length, na.rm = TRUE)))
@@ -1111,8 +1149,9 @@ view(Cyclistic_df %&gt;%
        group_by(member_casual, month_started_at, month_name, season) %&gt;%
        summarise(median_ride_length = median(ride_length, na.rm = TRUE)))</code></pre>
 </div>
-<div id="analysis-4" class="section level5">
-<h5>Analysis:</h5>
+<div id="assigned-as-dataframes-ride-length-by-member-vs-casual-split-by-month-season" class="section level5">
+<h5>Assigned as dataframes: Ride Length by Member vs Casual, Split by
+Month &amp; Season</h5>
 <pre class="r"><code>Members_Month_MAX &lt;- Cyclistic_df %&gt;%
   group_by(member_casual, month_started_at, month_name, season) %&gt;%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
@@ -1125,8 +1164,13 @@ Members_Month_Median &lt;- Cyclistic_df %&gt;%
   group_by(member_casual, month_started_at, month_name, season) %&gt;%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))</code></pre>
 </div>
-<div id="analysis-5" class="section level5">
-<h5>Analysis:</h5>
+<div id="analysis-plot-point-graph-using-dataframes" class="section level5">
+<h5>Analysis: Plot Point Graph using dataframes</h5>
+<ul>
+<li><p>Max:</p></li>
+<li><p>Mean:</p></li>
+<li><p>Median:</p></li>
+</ul>
 <pre class="r"><code>ggplot(data = Members_Month_MAX) +
   geom_point(mapping = aes(x = season, y = max_ride_length, color = member_casual, size = .25))
 
@@ -1145,30 +1189,48 @@ ggsave(&quot;Mean_Ride_Length.jpg&quot;)
 ggsave(&quot;Max_Ride_Length.jpg&quot;)
 ggsave(&quot;Median_Ride_Length.jpg&quot;)</code></pre>
 </div>
-<div id="analysis-6" class="section level5">
-<h5>Analysis:</h5>
+<div id="analysis-bar-chart-graph-using-dataframes" class="section level5">
+<h5>Analysis: Bar Chart graph using dataframes</h5>
+<ul>
+<li>Bar Chart:</li>
+</ul>
 <pre class="r"><code>ggplot(Cyclistic_df, aes(x = member_casual)) +
   geom_bar() +
   geom_text(aes(label = sprintf(&quot;%s&quot;, comma(..count..))), stat = &#39;count&#39;, vjust = -0.5)
 
 ggsave(&quot;Bar_Members_vs_Casual.jpg&quot;)</code></pre>
 </div>
-<div id="analysis-7" class="section level5">
+<div id="analysis" class="section level5">
 <h5>Analysis:</h5>
 </div>
-<div id="analysis-8" class="section level5">
+<div id="analysis-1" class="section level5">
 <h5>Analysis:</h5>
 </div>
-<div id="analysis-9" class="section level5">
+<div id="analysis-2" class="section level5">
 <h5>Analysis:</h5>
 </div>
-<div id="analysis-10" class="section level5">
+<div id="analysis-3" class="section level5">
 <h5>Analysis:</h5>
 </div>
-<div id="analysis-11" class="section level5">
+<div id="analysis-4" class="section level5">
 <h5>Analysis:</h5>
 <hr />
 </div>
+</div>
+</div>
+<div id="anaylisis-conclusions" class="section level3">
+<h3>Anaylisis Conclusions</h3>
+<div id="pending-review-taking-notes-as-as-i-go-to-be-re-written-and-finalized" class="section level5">
+<h5><em>Pending Review… taking notes as as I go… to be re-written and
+finalized…</em></h5>
+<p>So far…</p>
+<p>Members ride way more often for way shorter distances, and their
+highest usage is June, July, and August, with a taper effect on either
+side, May/September.</p>
+<p>I’ll still be looking at more slices. But so far, it looks like a
+Campaign from May to September, with a focus on casual riders who do
+shorter rides more frequently.</p>
+<hr />
 </div>
 </div>
 </div>
@@ -1224,33 +1286,11 @@ presenting your case study to a friend or family member.</li>
 <h5><em>Deliverable:Your top three recommendations based on your
 analysis</em></h5>
 <hr />
-<p>This</p>
-<p>Ask Three questions will guide the future marketing program: 1. How
-do annual members and casual riders use Cyclistic bikes differently? 2.
-Why would casual riders buy Cyclistic annual memberships? 3. How can
-Cyclistic use digital media to influence casual riders to become
-members?</p>
-<p>Moreno has assigned you the first question to answer: How do annual
-members and casual riders use Cyclistic bikes differently? You will
-produce a report with the following deliverables: 1. A clear statement
-of the business task 2. A description of all data sources used 3.
-Documentation of any cleaning or manipulation of data 4. A summary of
-your analysis 5. Supporting visualizations and key findings 6. Your top
-three recommendations based on your analysis</p>
-<p>Calculations to run mean ride length max ride length median ride
-length</p>
-<p>MODE is Excel, in SQL we can: SELECT ride_length FROM ( SELECT
-ride_length, ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) AS Rank FROM
-[dbo].[Cyclistic_divvy_tripdata] GROUP BY ride_length ) AS Subquery
-WHERE Rank = 1;</p>
-<p>Slice these by members vs casual riders, including days of the week
-as slicers.</p>
-<p>What is each days’ average/median and how does it look sliced by
-rider types (members/casual)</p>
-<p>Rebuild this notes doc with the data analysis process steps:</p>
-<p>Ask, Prepare, Process, Analyze, Share and Act.</p>
 </div>
 </div>
+</div>
+<div id="tbc" class="section level1">
+<h1>TBC…</h1>
 </div>
 
 

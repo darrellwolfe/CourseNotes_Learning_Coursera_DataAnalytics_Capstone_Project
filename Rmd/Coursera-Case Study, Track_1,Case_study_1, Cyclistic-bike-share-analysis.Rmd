@@ -32,30 +32,27 @@ Coursera offered the following summary of this dataset and case study:
 
 (Note: The datasets have a different name because Cyclistic is a fictional company. For the purposes of this case study, the datasets are appropriate and will enable you to answer the business questions. The data has been made available by Motivate International Inc. under this license.) This is public data that you can use to explore how different customer types are using Cyclistic bikes.
 
-
 ------------------------------------------------------------------------
 
 ## Tools
 
 Throughout this project the following tools were utilized:
 
-*   Microsoft Excel
-  +   Microsoft Power Query (Excel)
-  +   Microsoft Data Model + DAX
-  +   Microsoft Power Pivot   
-*   Microsoft SQL Server Express
-*   Microsoft Visual Studio 2022
-*   Google Big Query (attempted, not used)
-*   Posit RStudio
-*   Tableau Public 2.1
-
+-   Microsoft Excel
+-   Microsoft Power Query (Excel)
+-   Microsoft Data Model + DAX
+-   Microsoft Power Pivot\
+-   Microsoft SQL Server Express
+-   Microsoft Visual Studio 2022
+-   Google Big Query (attempted, not used)
+-   Posit RStudio
+-   Tableau Public 2.1
 
 ## Programming/Analytics Languages
 
-*   SQL
-*   R
-*   DAX
-
+-   SQL
+-   R
+-   DAX
 
 ------------------------------------------------------------------------
 
@@ -72,10 +69,10 @@ Coursera: "Along the way, you will perform numerous real-world tasks of a junior
 -   What is the problem you are trying to solve?
 -   How can your insights drive business decisions?
 
-##### Key tasks 
+##### Key tasks
 
-1.    Identify the business task 
-2.    Consider key stakeholders
+1.  Identify the business task
+2.  Consider key stakeholders
 
 ##### *Deliverable: A clear statement of the business task*
 
@@ -127,14 +124,12 @@ My task today is to address question number 1.
 -   How does it help you answer your question?
 -   Are there any problems with the data?
 
+##### Key tasks
 
-##### Key tasks 
-
-1.    Download data and store it appropriately.
-2.    Identify how it’s organized.
-3.    Sort and filter the data.
-4.    Determine the credibility of the data.
-
+1.  Download data and store it appropriately.
+2.  Identify how it's organized.
+3.  Sort and filter the data.
+4.  Determine the credibility of the data.
 
 ##### *Deliverable: A description of all data sources used.*
 
@@ -190,10 +185,7 @@ I chose a single month CSV to explore to wrap my head around what data exists wi
 
 ![Excel_DataModel_Dashboard_Stations 2](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPzoVhGXEIUCBu9W68ycvYEQTOHOzsUEgeRclqbLZZcZwtvhIcALLH1gJf1ZY2Yicw-pTyWNUiNhN56CN9EqqYC1ErJu6_ee21aZBkiB-M6aw-veWqpkgL3jWbEMJqukbvzwu2KG1CjRcDtXvZHe60suKajqif75v56rE9EaWSANSWtE8e9uCkAVk-Wnca/s412/Excel_DataModel_Dashboard_Stations%202.jpg)
 
-
-
 ------------------------------------------------------------------------
-
 
 ### Gathering and importing the data:
 
@@ -207,10 +199,10 @@ I set up a database on my local PC, created a table, and imported the data into 
 
 *Tools/Languages: Visual Studio 2022, SQL, CSVs on my local drive*
 
-1.    I used Visual Studio 2022 to establish a new database on my local PC: "Coursera_Capstone_Project".
-2.    I created a table on the new database for this data: "Cyclistic_divvy_tripdata"
-3.    I stored the CSVs in a dedicated location on my local PC.
-4.    I used a SQL script to import the CSVs into the table (with a few kinks to work out along the way)
+1.  I used Visual Studio 2022 to establish a new database on my local PC: "Coursera_Capstone_Project".
+2.  I created a table on the new database for this data: "Cyclistic_divvy_tripdata"
+3.  I stored the CSVs in a dedicated location on my local PC.
+4.  I used a SQL script to import the CSVs into the table (with a few kinks to work out along the way)
 
 ------------------------------------------------------------------------
 
@@ -220,12 +212,11 @@ Using Visual Studio 2022, I created a database dedicated to this project (and po
 
 ![Visual Studio 2022 New Database](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKBE_Rpm9qyz0mRToG2MkmEHA5l-2AvPGSDIGyLDCK1yoAfr6uvWT0xk4zxbPZeyvEZrQHmiO1RLgaQE0TvbURbcxU1OUGw8H7uETvMz43LxmSVBe9ZaPVwD9QnA6Jj1aVnDpjrqezKGrp3fupjkWojwE4W5iJ4y2qYq0sS2gq7DruvyZZSvMudIWEg_09/s334/VisualStudio2022_CreateDatabase.jpg)
 
-
 ------------------------------------------------------------------------
 
 ##### 2 SQL Scripting the new table
 
-By copying the CSV headers into my Visual Studio 2022 code editor, and them using them as a basis for the new table, I was able to create a table situated to received the CSV data. 
+By copying the CSV headers into my Visual Studio 2022 code editor, and them using them as a basis for the new table, I was able to create a table situated to received the CSV data.
 
 *Note: After working with the data, I deleted and rebuilt the table with new specifications, including getting rid of the primary key.*
 
@@ -252,12 +243,11 @@ CREATE TABLE [dbo].[Cyclistic_divvy_tripdata] (
 
 ```
 
-
 ------------------------------------------------------------------------
 
 #### 3. Importing the CSVs into the database
 
-To accomplish this step, I ran a BULK INSERT in SQL via Visual Studio 2022, replacing each `FROM` line with the directions to the individual CSVs. After checking with my resources, I did find a way to use  Power Shell to automated this; however, I didn't understand it well enough for this task. I'll be working on learing Power Shell commands for future use.
+To accomplish this step, I ran a BULK INSERT in SQL via Visual Studio 2022, replacing each `FROM` line with the directions to the individual CSVs. After checking with my resources, I did find a way to use Power Shell to automated this; however, I didn't understand it well enough for this task. I'll be working on learing Power Shell commands for future use.
 
 *Tools/Languages: Visual Studio 2022, SQL, CSVs*
 
@@ -265,14 +255,13 @@ To accomplish this step, I ran a BULK INSERT in SQL via Visual Studio 2022, repl
 
 I ran into two separate issues inserting the data into the new table.
 
+1.  Duplicate data broke my Primary Key, so I rebuilt the table without it and sorted out duplicate data in subsequent steps.
 
-1.    Duplicate data broke my Primary Key, so I rebuilt the table without it and sorted out duplicate data in subsequent steps. 
+2.  CSV formatting `m/d/yyyy hh:mm`. In the first several CSVs, this was the native custom formatting for the columns `started_at` and `ended_at` as they came from the downloads. However, several subsequent CSVs were formatted as "General" without this custom formatting. As a result, the SQL script would code an error for mismatched types. To solve this issue, I copied the fomratting into these CSVs, resaved, and re-ran the scripts with no errors.
 
-2.    CSV formatting `m/d/yyyy hh:mm`. In the first several CSVs, this was the native custom formatting for the columns `started_at` and `ended_at` as they came from the downloads. However, several subsequent CSVs were formatted as "General" without this custom formatting. As a result, the SQL script would code an error for mismatched types. To solve this issue, I copied the fomratting into these CSVs, resaved, and re-ran the scripts with no errors.
+-   Sometimes this was caused by the ride_id showing up in one month because it "started" in that month but the ride ended the next day in the next month. The insertion process also caused several NULL rows. Both were sorted out in subsequent steps.
 
-  +   Sometimes this was caused by the ride_id showing up in one month because it "started" in that month but the ride ended the next day in the next month. The insertion process also caused several NULL rows. Both were sorted out in subsequent steps.
-
-3.    Refreshing the view of the data, sorted by date, DESC allowed me to confirm the new data had completed before moving on to the next CSV.
+3.  Refreshing the view of the data, sorted by date, DESC allowed me to confirm the new data had completed before moving on to the next CSV.
 
 ##### BULK INSERT SQL Script
 
@@ -313,41 +302,34 @@ FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\
 
 ```
 
-
 ##### BULK INSERT SQL Script ERROR
 
 ![VisualStudio2022_BULKINSERT_ERROR](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQKE5WvVIVFvgMlcli63UU1K7DLke7yAjgA7pfFmfEfZkGSSbq_uZFzXCCAZ3dblP1WaOqVm6-0T5kBk9L8afXa8KXKX95VBXrbenYQwNFc8o5lPFcE0Bu6Op43Ng2qD1574cr_aBINA2ZXpy9z7uAHUBeA9SrawYpT12keXW7ifzsbP6sm4f5PN5FmDM8/s1921/VisualStudio2022_BULK_INSERT_ERRORs.jpg)
 
 ##### BULK INSERT SQL Script: View Data
 
-
 ![VisualStudio2022_ViewData](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEEMbbvwMdIJnR4qjtHJ6JbHdEfKdJaFS0lQM-4bFZ_Ed0ewJRtiw1lX1t3tO-YCG-jPPs53cJEHyqamSvfwksgJ3BZek5fiVZk9K06xPAa1J1lo-QPfQuyvmCQdfU6593qStZ9ImmF8uU6QRQTS7zNutqElGcPzdEPCKQZe_o0jqYukUPl-2d0yHn6BAj/s1031/VisualStudio2022_ViewData.jpg)
-
 
 ------------------------------------------------------------------------
 
 ## Process
 
-
 ##### Guiding questions
 
 -   What tools are you choosing and why?
--   Have you ensured your data’s integrity?
+-   Have you ensured your data's integrity?
 -   What steps have you taken to ensure that your data is clean?
 -   How can you verify that your data is clean and ready to analyze?
 -   Have you documented your cleaning process so you can review and share those results?
 
+##### Key tasks
 
-##### Key tasks 
-
-1.    Check the data for errors.
-2.    Choose your tools.
-3.    Transform the data so you can work with it effectively.
-4.    Document the cleaning process.
-
+1.  Check the data for errors.
+2.  Choose your tools.
+3.  Transform the data so you can work with it effectively.
+4.  Document the cleaning process.
 
 ##### *Deliverable:Documentation of any cleaning or manipulation of data*
-
 
 ------------------------------------------------------------------------
 
@@ -356,7 +338,6 @@ FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\
 With all the data reviewed and imported in previous steps, I began adding transformations and clean up steps that would make the data easier to work with. After having issues with the Primary Key in previous steps, I set out to remove duplcates and NULLs from the dataset. I then began working with my data to add relevant extrapolations from the existing material.
 
 Still working in SQL inside of Visual Studio 2022, I worked through the following transformations.
-
 
 ##### Clean up and transformation SQL Scripts
 
@@ -472,12 +453,9 @@ SET season =
   
 ```
 
-
-
 ------------------------------------------------------------------------
 
 ## Analyze
-
 
 ##### Guiding questions
 
@@ -487,17 +465,14 @@ SET season =
 -   What trends or relationships did you find in the data?
 -   How will these insights help answer your business questions?
 
+##### Key tasks
 
-##### Key tasks 
-
-1.    Aggregate your data so it’s useful and accessible.
-2.    Organize and format your data.
-3.    Perform calculations.
-4.    Identify trends and relationships.
-
+1.  Aggregate your data so it's useful and accessible.
+2.  Organize and format your data.
+3.  Perform calculations.
+4.  Identify trends and relationships.
 
 ##### *Deliverable:A summary of your analysis*
-
 
 ------------------------------------------------------------------------
 
@@ -507,10 +482,10 @@ With the table now ready for review, I then established a connection to the data
 
 When working with RStudio connected to a live database, you can open SQL Scripts with `-- !preview conn=conn`, which allow you to then view the results of the SQL within RStudio. This step is important in RStudio, as it allows the SQL Script to speak directly with the database. I worked in both SQL and R while working inside RStudio. However, I found most of the analysis steps easier in R, which is what I will present below.
 
-
 ------------------------------------------------------------------------
 
 #### Establishing a database connection in RStudio
+
 These packages are not all required for the connection, but were evetually helpful in my analysis, so if you are repeating these steps, you will want to use them.
 
 ```{r eval=FALSE, include=TRUE}
@@ -563,33 +538,54 @@ ORDER BY started_at DESC;
 
 ```
 
-
-
-
 ------------------------------------------------------------------------
 
-##### Analysis: Initials Exploration
+##### Analysis: Initial Exploration, verifying the dataset
 
 These worked as a proof that the data was loaded and showed me some initial calculations were working.
+
+-   colnames() - Reveals the column names of the dataset. Very handy to make sure you have the final dataset with all the transformations added in the SQL step.
+
+-   str() - Reveals the structure of the data, which can serve as a diagnostic tool, or an aide to help find clues in the dataset.
+
 
 ```{r eval=FALSE, include=TRUE}
 colnames(Cyclistic_df)
 
 str(Cyclistic_df)
+```
 
+
+##### Analysis: High Level Overview
+
+-   nrow(): Total rows, which is total entries and ride_ids.
+
+-   max(): The longest ride in the dataset.
+
+-   mean(): The mean-average of all the ride times.
+
+-   median(): The middle ride of the ride times.
+
+```{r eval=FALSE, include=TRUE}
 total_rides <- nrow(Cyclistic_df)
+
+max(Cyclistic_df$ride_length)
 
 mean(Cyclistic_df$ride_length)
 
 median(Cyclistic_df$ride_length)
 
-max(Cyclistic_df$ride_length)
 
 
 ```
 
-##### Analysis:
+##### Analysis: Ride Length by Member vs Causal
 
+-   Max:
+
+-   Mean:
+
+-   Median:
 
 ```{r eval=FALSE, include=TRUE}
 Cyclistic_df %>%
@@ -606,8 +602,13 @@ Cyclistic_df %>%
 
 ```
 
-##### Analysis:
+##### Analysis: Ride Length by Member vs Causal, Split by Day of the Week
 
+-   Max:
+
+-   Mean:
+
+-   Median:
 
 ```{r eval=FALSE, include=TRUE}
 
@@ -625,7 +626,13 @@ Cyclistic_df %>%
 
 ```
 
-##### Analysis:
+##### Analysis: Ride Length by Member vs Casual, split by Rideable Type
+
+-   Max:
+
+-   Mean:
+
+-   Median:
 
 
 ```{r eval=FALSE, include=TRUE}
@@ -644,7 +651,13 @@ Cyclistic_df %>%
 
 ```
 
-##### Analysis:
+##### Analysis: Ride Length by Member vs Casual, Split by Month & Season
+
+-   Max:
+
+-   Mean:
+
+-   Median:
 
 
 ```{r eval=FALSE, include=TRUE}
@@ -662,10 +675,7 @@ view(Cyclistic_df %>%
        summarise(median_ride_length = median(ride_length, na.rm = TRUE)))
 ```
 
-
-
-##### Analysis:
-
+##### Assigned as dataframes: Ride Length by Member vs Casual, Split by Month & Season
 
 ```{r eval=FALSE, include=TRUE}
 Members_Month_MAX <- Cyclistic_df %>%
@@ -682,9 +692,13 @@ Members_Month_Median <- Cyclistic_df %>%
 
 ```
 
+##### Analysis: Plot Point Graph using dataframes
 
+-   Max:
 
-##### Analysis:
+-   Mean:
+
+-   Median:
 
 
 ```{r eval=FALSE, include=TRUE}
@@ -710,10 +724,9 @@ ggsave("Median_Ride_Length.jpg")
 
 ```
 
+##### Analysis: Bar Chart graph using dataframes
 
-
-##### Analysis:
-
+-   Bar Chart:
 
 ```{r eval=FALSE, include=TRUE}
 
@@ -725,49 +738,35 @@ ggsave("Bar_Members_vs_Casual.jpg")
 
 ```
 
-
-
 ##### Analysis:
-
 
 ```{r eval=FALSE, include=TRUE}
 
 
 ```
 
-
-
 ##### Analysis:
-
 
 ```{r eval=FALSE, include=TRUE}
 
 
 ```
 
-
-
 ##### Analysis:
-
 
 ```{r eval=FALSE, include=TRUE}
 
 
 ```
 
-
-
 ##### Analysis:
-
 
 ```{r eval=FALSE, include=TRUE}
 
 
 ```
 
-
 ##### Analysis:
-
 
 ```{r eval=FALSE, include=TRUE}
 
@@ -777,8 +776,17 @@ ggsave("Bar_Members_vs_Casual.jpg")
 
 
 
+------------------------------------------------------------------------
 
+### Anaylisis Conclusions
 
+##### *Pending Review... taking notes as as I go... to be re-written and finalized...*
+
+So far...
+
+Members ride way more often for way shorter distances, and their highest usage is June, July, and August, with a taper effect on either side, May/September.
+
+I'll still be looking at more slices. But so far, it looks like a Campaign from May to September, with a focus on casual riders who do shorter rides more frequently.
 
 
 
@@ -786,62 +794,34 @@ ggsave("Bar_Members_vs_Casual.jpg")
 
 ## Share
 
-
-
-
 ##### Guiding questions
 
 -   Were you able to answer the question of how annual members and casual riders use Cyclistic bikes differently? ● What story does your data tell? ● How do your findings relate to your original question? ● Who is your audience? What is the best way to communicate with them? ● Can data visualization help you share your findings? ● Is your presentation accessible to your audience?
 
+##### Key tasks
 
-##### Key tasks 
+1.  
 
-1.    1. Determine the best way to share your findings. 2. Create effective data visualizations. 3. Present your findings. 4. Ensure your work is accessible.
-
+    1.  Determine the best way to share your findings. 2. Create effective data visualizations. 3. Present your findings. 4. Ensure your work is accessible.
 
 ##### *Deliverable:Supporting visualizations and key findings*
-
-
 
 ------------------------------------------------------------------------
 
 ## Act
 
-
-
-
 ##### Guiding questions
 
 -   What is your final conclusion based on your analysis? ● How could your team and business apply your insights? ● What next steps would you or your stakeholders take based on your findings? ● Is there additional data you could use to expand on your findings?
 
+##### Key tasks
 
-##### Key tasks 
+1.  
 
-1.    1. Create your portfolio. 2. Add your case study. 3. Practice presenting your case study to a friend or family member.
-
+    1.  Create your portfolio. 2. Add your case study. 3. Practice presenting your case study to a friend or family member.
 
 ##### *Deliverable:Your top three recommendations based on your analysis*
 
-
-
-
-
 ------------------------------------------------------------------------
 
-This
-
-Ask Three questions will guide the future marketing program: 1. How do annual members and casual riders use Cyclistic bikes differently? 2. Why would casual riders buy Cyclistic annual memberships? 3. How can Cyclistic use digital media to influence casual riders to become members?
-
-Moreno has assigned you the first question to answer: How do annual members and casual riders use Cyclistic bikes differently? You will produce a report with the following deliverables: 1. A clear statement of the business task 2. A description of all data sources used 3. Documentation of any cleaning or manipulation of data 4. A summary of your analysis 5. Supporting visualizations and key findings 6. Your top three recommendations based on your analysis
-
-Calculations to run mean ride length max ride length median ride length
-
-MODE is Excel, in SQL we can: SELECT ride_length FROM ( SELECT ride_length, ROW_NUMBER() OVER (ORDER BY COUNT(\*) DESC) AS Rank FROM [dbo].[Cyclistic_divvy_tripdata] GROUP BY ride_length ) AS Subquery WHERE Rank = 1;
-
-Slice these by members vs casual riders, including days of the week as slicers.
-
-What is each days' average/median and how does it look sliced by rider types (members/casual)
-
-Rebuild this notes doc with the data analysis process steps:
-
-Ask, Prepare, Process, Analyze, Share and Act.
+# TBC...

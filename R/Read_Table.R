@@ -35,8 +35,6 @@ max(Cyclistic_df$ride_length)
 
 
 
-
-
 Cyclistic_df %>%
   group_by(member_casual) %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
