@@ -1,0 +1,59 @@
+
+How do Members use Cyclistic vs Casual Riders?
+- Ride Length (Members have shorter rides)
+- Who rides more often?
+- Who rides farthest distance?
+- Are there time of day preferences?
+- Are they day of week preferences?
+- Are there month of year/season of year preferences?
+- Are there opportunities for new stations that could increase new memberships
+  - Specifically, are members frequently stopping and starting at particular non-station hot-spots?
+
+
+Brain storming... with fellow data nerds.
+
+So far I have Ride Length (how long the rides were), spliced and sliced.
+
+I need the same for number of rides. 
+
+What would it look like to do "distance" from one station to another?
+
+Can we do time of day?
+
+What does it mean to use this in R >
+
+Predictive Models: You could potentially build models in R to predict the likelihood of a casual rider converting into a member.
+
+What would it look like if we took non-stations out of the mix and looked for most popular top-five stations for casual and top-five stations for members?
+
+What would it look like if we mapped stations with size by most visited, excluding non-stations?
+
+What would it look like if we mapped most frequent start-stop sites with non-stations only, for potential new station spots?
+
+What would it look like if we determined:
+
+
+
+**Brain Storming Session with GPT-4**
+
+-- Transformations:
+
+Time-Based Features: Extracting hour, day, week, month, or season from the Start and End dates can help analyze riding patterns.
+
+Duration of Rides: Calculating the duration of each ride using the Start and End times to understand usage patterns.
+
+Distance Between Stations: If you have lat-long details, you can calculate the distance between start and stop stations.
+
+Rider Classification: Categorize data into member and casual groups to perform comparative analyses.
+
+-- Potential Insights:
+
+Riding Patterns: Analyze riding habits across different times of the day, week, or month to see if members and casual riders show distinct patterns.
+
+Duration Insights: Members might take longer or shorter rides than casual riders. Understanding these patterns can help tailor membership offers.
+
+Geographical Preferences: Analyzing the popular start and stop stations can reveal where most rides occur for both members and casual riders.
+
+Seasonal Trends: Understanding how the riding behavior changes with seasons might unveil marketing opportunities for membership drives.
+
+

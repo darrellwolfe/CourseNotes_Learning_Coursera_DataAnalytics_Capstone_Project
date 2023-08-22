@@ -22,7 +22,7 @@ As part of the [Google Data Analytics Professional Certificate](https://www.cour
 
 ### Google Data Analytics Capstone: Complete a Case Study
 
-Case Studies offered two tracks (1) chose one of two case studies to use and follow the instructions to work through the data analysis and visualization or (2) chose your own dataset. As a starter, I chose track 1, dataset 1.
+Case Studies offered two tracks (1) chose one of two case studies to use and follow the instructions to work through the data analysis and visualization or (2) chose your own dataset. As a starter, I chose track 1, dataset 1. Having had some difficulty with a rental scooters service while I was on a business trip, the idea of working with rental bikes was compelling.
 
 ### Track 1, Case study 1, : Cyclistic bike-share analysis
 
@@ -220,7 +220,7 @@ By copying the CSV headers into my Visual Studio 2022 code editor, and them usin
 
 *Note: After working with the data, I deleted and rebuilt the table with new specifications, including getting rid of the primary key.*
 
-```{sql eval=FALSE, include=TRUE}
+```{sql create-table, eval=FALSE, include=TRUE}
 -- !preview conn=conn
 
 CREATE TABLE [dbo].[Cyclistic_divvy_tripdata] (
@@ -265,7 +265,7 @@ I ran into two separate issues inserting the data into the new table.
 
 ##### BULK INSERT SQL Script
 
-```{sql eval=FALSE, include=TRUE}
+```{sql bulk-insert, eval=FALSE, include=TRUE}
 BULK INSERT Cyclistic_divvy_tripdata
 FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\CSVs\202209-divvy-tripdata.csv'
 
@@ -341,7 +341,7 @@ Still working in SQL inside of Visual Studio 2022, I worked through the followin
 
 ##### Clean up and transformation SQL Scripts
 
-```{sql eval=FALSE, include=TRUE}
+```{sql read-scripts, eval=FALSE, include=TRUE}
 
 -- These read scripts allowed me to continually check my work
 -- Several other approaches were attempted but these proved the most useful.
@@ -488,13 +488,29 @@ When working with RStudio connected to a live database, you can open SQL Scripts
 
 These packages are not all required for the connection, but were evetually helpful in my analysis, so if you are repeating these steps, you will want to use them.
 
-```{r eval=FALSE, include=TRUE}
+------------------------------------------------------------------------
+
+##### Install Packages
+
+The following packages will allow us to work with the database and the data.
+
+```{r install-packages, eval=FALSE, include=TRUE}
 install.packages("DBI")
 install.packages("odbc")
 install.packages("RODBC")
 install.packages("tidyverse")
 install.packages("ggplot2")
 
+```
+
+
+------------------------------------------------------------------------
+
+##### Establish a Data Frame: Import the data from the database into RStudio
+
+Load the libraries, Establish a Connection, Assign an alias to the database table.
+
+```{r library, eval=TRUE, include=TRUE}
 library(DBI)
 library(odbc)
 library(RODBC)
@@ -503,20 +519,16 @@ library(dplyr)
 library(ggplot2)
 library(scales)
 
-
 connection <- odbcDriverConnect("driver={SQL Server};server=LAPTOP-76LHVPRQ\\SQLEXPRESS;database=Coursera_Capstone_Project;trusted_connection=true")
 
 Cyclistic_df <- sqlFetch(connection, "dbo.Cyclistic_divvy_tripdata")
-
-write.csv(Cyclistic_df, "C:/Users/darre/OneDrive/Documents/!Datasets/Cyclistic_divvy_tripdata CSVs/Final Dataset/Cyclistic_df.csv", row.names = FALSE)
-
 
 # This did not work:Server = "LAPTOP-76LHVPRQ\SQLEXPRESS",
 # That worked! Server = "LAPTOP-76LHVPRQ\\SQLEXPRESS",
 # One of the quirks of R is that some items you expect to work `=` require double `==`.
 # Backslashes must be doubled `\` becomes `\\`. I also learned changing them to forward slashes works as well for CSV file paths.
-
 ```
+
 
 *Note: At first, this code would not work, I checked my resources, and found that even though the actual file path has one backslash, the R code required a double backslash, in much the same way it requires `==` when using logical code.*
 
@@ -524,11 +536,34 @@ write.csv(Cyclistic_df, "C:/Users/darre/OneDrive/Documents/!Datasets/Cyclistic_d
 
 ------------------------------------------------------------------------
 
+##### Write the final table (or smaller tailored data views) to a CSV for use in Tableau or Power BI or Looker
+
+```{r write-csv, eval=FALSE, include=TRUE}
+
+write.csv(Cyclistic_df, "C:/Users/darre/OneDrive/Documents/!Datasets/Cyclistic_divvy_tripdata CSVs/Final Dataset/Cyclistic_df.csv", row.names = FALSE)
+
+```
+
+------------------------------------------------------------------------
+
 ##### Example: SQL inside RStudio
+
+This R code will establish the connection to the database inside R.
+
+```{r connect-database, eval=FALSE, include=TRUE}
+
+conn <- dbConnect(odbc(),
+    Driver = "SQL Server",
+    Server = "LAPTOP-76LHVPRQ\\SQLEXPRESS",
+    Database = "Coursera_Capstone_Project",
+    Trusted_Connection = "True")
+```
+
+###### SQL inside RStudio
 
 This will only work after a connection to the database is established.
 
-```{sql eval=FALSE, include=TRUE}
+```{sql select-top, eval=FALSE, include=TRUE}
 
 -- !preview conn=conn
 
@@ -548,13 +583,16 @@ These worked as a proof that the data was loaded and showed me some initial calc
 
 -   str() - Reveals the structure of the data, which can serve as a diagnostic tool, or an aide to help find clues in the dataset.
 
-
-```{r eval=FALSE, include=TRUE}
+```{r column-names, eval=TRUE, include=TRUE}
 colnames(Cyclistic_df)
+```
 
+```{r structure, eval=TRUE, include=TRUE}
 str(Cyclistic_df)
 ```
 
+
+------------------------------------------------------------------------
 
 ##### Analysis: High Level Overview
 
@@ -566,18 +604,25 @@ str(Cyclistic_df)
 
 -   median(): The middle ride of the ride times.
 
-```{r eval=FALSE, include=TRUE}
+```{r nrow, eval=TRUE, include=TRUE}
+nrow(Cyclistic_df)
+
 total_rides <- nrow(Cyclistic_df)
-
-max(Cyclistic_df$ride_length)
-
-mean(Cyclistic_df$ride_length)
-
-median(Cyclistic_df$ride_length)
-
-
-
 ```
+
+```{r max, eval=TRUE, include=TRUE}
+max(Cyclistic_df$ride_length)
+```
+
+```{r mean, eval=TRUE, include=TRUE}
+mean(Cyclistic_df$ride_length)
+```
+
+```{r median, eval=TRUE, include=TRUE}
+median(Cyclistic_df$ride_length)
+```
+
+------------------------------------------------------------------------
 
 ##### Analysis: Ride Length by Member vs Causal
 
@@ -587,20 +632,28 @@ median(Cyclistic_df$ride_length)
 
 -   Median:
 
-```{r eval=FALSE, include=TRUE}
+```{r max-ride, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual) %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
+```
 
+
+```{r mean-ride, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual) %>%
   summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
+```
 
+
+```{r median-ride, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual) %>%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))
-
 ```
+
+
+------------------------------------------------------------------------
 
 ##### Analysis: Ride Length by Member vs Causal, Split by Day of the Week
 
@@ -610,21 +663,27 @@ Cyclistic_df %>%
 
 -   Median:
 
-```{r eval=FALSE, include=TRUE}
-
+```{r max-ride-day, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, day_of_week) %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
+```
 
+
+```{r mean-ride-day, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, day_of_week) %>%
   summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
+```
 
+```{r median-ride-day, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, day_of_week) %>%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))
-
 ```
+
+
+------------------------------------------------------------------------
 
 ##### Analysis: Ride Length by Member vs Casual, split by Rideable Type
 
@@ -635,21 +694,27 @@ Cyclistic_df %>%
 -   Median:
 
 
-```{r eval=FALSE, include=TRUE}
-
+```{r max-ride-type, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, rideable_type) %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
+```
 
+
+```{r mean-ride-type, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, rideable_type) %>%
   summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
+```
 
+```{r median-ride-type, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, rideable_type) %>%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))
-
 ```
+
+
+------------------------------------------------------------------------
 
 ##### Analysis: Ride Length by Member vs Casual, Split by Month & Season
 
@@ -660,7 +725,7 @@ Cyclistic_df %>%
 -   Median:
 
 
-```{r eval=FALSE, include=TRUE}
+```{r view-data, eval=FALSE, include=TRUE}
 
 view(Cyclistic_df %>%
        group_by(member_casual, month_started_at, month_name, season) %>%
@@ -675,9 +740,11 @@ view(Cyclistic_df %>%
        summarise(median_ride_length = median(ride_length, na.rm = TRUE)))
 ```
 
+------------------------------------------------------------------------
+
 ##### Assigned as dataframes: Ride Length by Member vs Casual, Split by Month & Season
 
-```{r eval=FALSE, include=TRUE}
+```{r assigned-df, eval=TRUE, include=TRUE}
 Members_Month_MAX <- Cyclistic_df %>%
   group_by(member_casual, month_started_at, month_name, season) %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
@@ -692,6 +759,9 @@ Members_Month_Median <- Cyclistic_df %>%
 
 ```
 
+
+------------------------------------------------------------------------
+
 ##### Analysis: Plot Point Graph using dataframes
 
 -   Max:
@@ -701,49 +771,53 @@ Members_Month_Median <- Cyclistic_df %>%
 -   Median:
 
 
-```{r eval=FALSE, include=TRUE}
-
+```{r ggplot-max, eval=TRUE, include=TRUE}
 ggplot(data = Members_Month_MAX) +
   geom_point(mapping = aes(x = season, y = max_ride_length, color = member_casual, size = .25))
+```
 
+```{r ggplot-mean, eval=TRUE, include=TRUE}
 ggplot(data = Members_Month_Mean) +
   geom_point(mapping = aes(x = season, y = mean_ride_length, color = member_casual, size = .25))
+```
 
+```{r ggplot-median, eval=TRUE, include=TRUE}
 ggplot(data = Members_Month_Median) + 
   geom_point(mapping = aes(x = season, y = median_ride_length, color = member_casual, size = .25))
 
   #  geom_smooth(mapping = aes(x = season, y = median_ride_length, color = member_casual), method = lm, se = FALSE)
-
-
-
-
-ggsave("Mean_Ride_Length.jpg")
-ggsave("Max_Ride_Length.jpg")
-ggsave("Median_Ride_Length.jpg")
-
-
 ```
+
+
+
+
+------------------------------------------------------------------------
 
 ##### Analysis: Bar Chart graph using dataframes
 
 -   Bar Chart:
 
-```{r eval=FALSE, include=TRUE}
-
+```{r bar-chart-compare-member-to-casual, eval=TRUE, include=TRUE}
 ggplot(Cyclistic_df, aes(x = member_casual)) +
   geom_bar() +
   geom_text(aes(label = sprintf("%s", comma(..count..))), stat = 'count', vjust = -0.5)
+```
 
+
+------------------------------------------------------------------------
+
+##### Analysis: Save Images
+
+This saves the final product as an image to work with later.
+```{r save-images, eval=FALSE, include=TRUE}
+ggsave("Mean_Ride_Length.jpg")
+ggsave("Max_Ride_Length.jpg")
+ggsave("Median_Ride_Length.jpg")
 ggsave("Bar_Members_vs_Casual.jpg")
-
 ```
 
-##### Analysis:
-
-```{r eval=FALSE, include=TRUE}
 
 
-```
 
 ##### Analysis:
 
