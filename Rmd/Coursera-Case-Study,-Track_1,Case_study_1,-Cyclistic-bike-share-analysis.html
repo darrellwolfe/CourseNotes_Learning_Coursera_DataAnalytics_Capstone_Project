@@ -1002,7 +1002,8 @@ the data.</p>
 install.packages(&quot;odbc&quot;)
 install.packages(&quot;RODBC&quot;)
 install.packages(&quot;tidyverse&quot;)
-install.packages(&quot;ggplot2&quot;)</code></pre>
+install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;geosphere&quot;)</code></pre>
 <hr />
 </div>
 <div id="establish-a-data-frame-import-the-data-from-the-database-into-rstudio" class="section level5">
@@ -1010,7 +1011,8 @@ install.packages(&quot;ggplot2&quot;)</code></pre>
 RStudio</h5>
 <p>Load the libraries, Establish a Connection, Assign an alias to the
 database table.</p>
-<pre class="r"><code>library(DBI)</code></pre>
+<pre class="r"><code># LOAD LIBRARIES
+library(DBI)</code></pre>
 <pre><code>## Warning: package &#39;DBI&#39; was built under R version 4.3.1</code></pre>
 <pre class="r"><code>library(odbc)</code></pre>
 <pre><code>## Warning: package &#39;odbc&#39; was built under R version 4.3.1</code></pre>
@@ -1042,6 +1044,16 @@ library(scales)</code></pre>
 ## The following object is masked from &#39;package:readr&#39;:
 ## 
 ##     col_factor</code></pre>
+<pre class="r"><code>library(geosphere)</code></pre>
+<pre><code>## Warning: package &#39;geosphere&#39; was built under R version 4.3.1</code></pre>
+<pre><code>## The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
+## which was just loaded, will retire in October 2023.
+## Please refer to R-spatial evolution reports for details, especially
+## https://r-spatial.org/r/2023/05/15/evolution4.html.
+## It may be desirable to make the sf package available;
+## package maintainers should consider adding sf to Suggests:.
+## The sp package is now running under evolution status 2
+##      (status 2 uses the sf package in place of rgdal)</code></pre>
 <pre class="r"><code>connection &lt;- odbcDriverConnect(&quot;driver={SQL Server};server=LAPTOP-76LHVPRQ\\SQLEXPRESS;database=Coursera_Capstone_Project;trusted_connection=true&quot;)
 
 Cyclistic_df &lt;- sqlFetch(connection, &quot;dbo.Cyclistic_divvy_tripdata&quot;)
@@ -1398,16 +1410,159 @@ ggsave(&quot;Max_Ride_Length.jpg&quot;)
 ggsave(&quot;Median_Ride_Length.jpg&quot;)
 ggsave(&quot;Bar_Members_vs_Casual.jpg&quot;)</code></pre>
 </div>
+<div id="analysis-stations-used-by-members-vs-casual-riders" class="section level5">
+<h5>Analysis: Stations used by Members vs Casual riders</h5>
+<p>When viewing the data I found several interesting points of
+reference.</p>
+<ul>
+<li>When the entire dataset is viewed in map, Members and Casual riders
+use the basic regions, no clear region stood out.</li>
+<li>When the data is looked at closer; however, most stations (and
+non-stations) have fewer than 1% of the total stops/starts.</li>
+<li>By filtering for the top 25 stations, a trend appears by comparing
+bar charts and mapped data in Tableau.
+<ul>
+<li>Casual Riders: Use the stations closer to the water and tourist
+attractions.</li>
+<li>Members most frequently use the stations further inland in major
+urban areas.</li>
+<li>With this, we can suggest that we focus on casual riders at the
+stations most used by members in these inland areas, and specifically
+start with a pilot at one station showing promise.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>stations_df &lt;- sqldf(&quot;select
+          start_station_name as station_name, 
+          start_station_id as station_id,
+          start_lat as lat,
+          start_lng as long,
+          member_casual,
+          count(start_station_name) as station_stops
+       from Cyclistic_df 
+       group by
+          start_station_name, 
+          start_station_id,
+          start_lat,
+          start_lng,
+          member_casual
+
+      union
+
+                    select
+          end_station_name as station_name, 
+          end_station_id as station_id,
+          end_lat as lat,
+          end_lng as long,
+          member_casual,
+          count(end_station_name) as station_stops
+       from Cyclistic_df 
+       group by
+          end_station_name, 
+          end_station_id,
+          end_lat,
+          end_lng,
+          member_casual
+ 
+      order by station_stops desc&quot;)</code></pre>
+</div>
+<div id="analysis-farthest-distance-traveled" class="section level5">
+<h5>Analysis: Farthest Distance Traveled</h5>
+<p>I wanted to see how far the farthest rides were. When I built this
+calculation, adding the distance column via R script, I ran into a few
+issues.</p>
+<pre class="r"><code># Distance in Miles
+# Applying the distance calculation to each row and converting to miles
+Cyclistic_df$distance_traveled_miles &lt;- mapply(function(lat1, lon1, lat2, lon2) {
+  distHaversine(c(lon1, lat1), c(lon2, lat2)) * 0.000621371
+}, lat1 = Cyclistic_df$start_lat, lon1 = Cyclistic_df$start_lng, lat2 = Cyclistic_df$end_lat, lon2 = Cyclistic_df$end_lng)
+# Now the Cyclistic_df will have a new column &#39;distance_traveled&#39; with the distances in miles.
+
+str(Cyclistic_df)
+summary(Cyclistic_df$start_lat)
+summary(Cyclistic_df$start_lng)
+summary(Cyclistic_df$end_lat)
+summary(Cyclistic_df$end_lng)</code></pre>
+<hr />
+<p>When I attempted to run mean, median, and max distances, I discovered
+NA values in the end-lat/long data. So I removed NA rows as a new
+dataframe for this calculation.</p>
+<blockquote>
+<p>mean(Cyclistic_df<span class="math inline">\(distance_traveled_miles)
+[1] NA median(Cyclistic_df\)</span>distance_traveled_miles) [1] NA
+max(Cyclistic_df<span class="math inline">\(distance_traveled_miles) [1]
+NA summary(Cyclistic_df\)</span>start_lat) Min. 1st Qu. Median Mean 3rd
+Qu. Max. 41.64 41.88 41.90 41.90 41.93 45.64 summary(Cyclistic_df<span class="math inline">\(start_lng) Min. 1st Qu. Median Mean 3rd Qu. Max.
+-87.92 -87.66 -87.64 -87.65 -87.63 -73.80
+summary(Cyclistic_df\)</span>end_lat) Min. 1st Qu. Median Mean 3rd Qu.
+Max. NA’s 0.00 41.88 41.90 41.90 41.93 42.37 8862
+summary(Cyclistic_df$end_lng) Min. 1st Qu. Median Mean 3rd Qu. Max. NA’s
+-88.16 -87.66 -87.64 -87.65 -87.63 0.00 8862</p>
+</blockquote>
+<pre class="r"><code># Removing rows with NA values
+`Cyclistic_df_No_NA &lt;- na.omit(Cyclistic_df)`
+
+summary(Cyclistic_df_No_NA$start_lat)
+summary(Cyclistic_df_No_NA$start_lng)
+summary(Cyclistic_df_No_NA$end_lat)
+summary(Cyclistic_df_No_NA$end_lng)
+
+# Explore the df: What are the mean, median, min, and max?
+`mean(Cyclistic_df_No_NA$distance_traveled_miles)`
+`median(Cyclistic_df_No_NA$distance_traveled_miles)`
+`max(Cyclistic_df_No_NA$distance_traveled_miles)`
+
+`view(sqldf(&quot;select * from Cyclistic_df_No_NA where distance_traveled_miles &gt; 6100&quot;))`</code></pre>
+<hr />
+<p>After removing NA, I still found oddities that didn’t make sense.
+Several rides were over 6,100 miles in 15 minutes. That is impossible.
+After looking at the data, I found these rides had start lat/longs but
+‘0’ for ending lat/longs. To solve this I created a second dataframe
+(preserving the former in case something went wrong, which it did
+because I had == instead of !=).</p>
+<pre class="r"><code># Removing rows with 0 values in the lat long columns.
+Cyclistic_df_No_Zero &lt;- Cyclistic_df_No_NA[Cyclistic_df_No_NA$start_lat != 0 &amp; Cyclistic_df_No_NA$start_lng != 0 &amp; Cyclistic_df_No_NA$end_lat != 0 &amp; Cyclistic_df_No_NA$end_lng != 0,]
+
+summary(Cyclistic_df_No_Zero$start_lat)
+summary(Cyclistic_df_No_Zero$start_lng)
+summary(Cyclistic_df_No_Zero$end_lat)
+summary(Cyclistic_df_No_Zero$end_lng)
+
+# Explore the df: What are the mean, median, min, and max?
+mean(Cyclistic_df_No_Zero$distance_traveled_miles)
+
+median(Cyclistic_df_No_Zero$distance_traveled_miles)
+
+max(Cyclistic_df_No_Zero$distance_traveled_miles)</code></pre>
+<hr />
+<p>With NA and 0 values removed, I can run the results.</p>
+<blockquote>
+<p>summary(Cyclistic_df_No_Zero<span class="math inline">\(start_lat)
+Min. 1st Qu. Median Mean 3rd Qu. Max. 41.65 41.88 41.90 41.90 41.93
+45.64 summary(Cyclistic_df_No_Zero\)</span>start_lng) Min. 1st Qu.
+Median Mean 3rd Qu. Max. -87.84 -87.66 -87.64 -87.64 -87.63 -73.80
+summary(Cyclistic_df_No_Zero<span class="math inline">\(end_lat) Min.
+1st Qu. Median Mean 3rd Qu. Max. 41.65 41.88 41.90 41.90 41.93 42.06
+summary(Cyclistic_df_No_Zero\)</span>end_lng) Min. 1st Qu. Median Mean
+3rd Qu. Max. -87.84 -87.66 -87.64 -87.65 -87.63 -87.53</p>
+</blockquote>
+<p>Which then gave me the three figures I was seeking.</p>
+<blockquote>
+<p>mean(Cyclistic_df_No_Zero$distance_traveled_miles) [1] 1.291893</p>
+<p>median(Cyclistic_df_No_Zero$distance_traveled_miles) [1]
+0.9647673</p>
+<p>max(Cyclistic_df_No_Zero$distance_traveled_miles) [1] 739.9625</p>
+</blockquote>
+<pre class="r"><code># Explore the df: What are the mean, median, min, and max?
+mean(Cyclistic_df$distance_traveled_miles)
+
+median(Cyclistic_df$distance_traveled_miles)
+
+max(Cyclistic_df$distance_traveled_miles)</code></pre>
+</div>
 <div id="analysis" class="section level5">
 <h5>Analysis:</h5>
 </div>
 <div id="analysis-1" class="section level5">
-<h5>Analysis:</h5>
-</div>
-<div id="analysis-2" class="section level5">
-<h5>Analysis:</h5>
-</div>
-<div id="analysis-3" class="section level5">
 <h5>Analysis:</h5>
 <hr />
 </div>

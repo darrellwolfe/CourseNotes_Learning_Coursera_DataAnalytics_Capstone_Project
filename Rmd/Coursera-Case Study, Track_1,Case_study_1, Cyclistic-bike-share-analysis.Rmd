@@ -853,9 +853,9 @@ stations_df <- sqldf("select
 
 ##### Analysis: Farthest Distance Traveled
 
+I wanted to see how far the farthest rides were. When I built this calculation, adding the distance column via R script, I ran into a few issues.
 
-
-```{r eval=FALSE, include=TRUE}
+```{r new-column-distance, eval=FALSE, include=TRUE}
 # Distance in Miles
 # Applying the distance calculation to each row and converting to miles
 Cyclistic_df$distance_traveled_miles <- mapply(function(lat1, lon1, lat2, lon2) {
@@ -863,10 +863,105 @@ Cyclistic_df$distance_traveled_miles <- mapply(function(lat1, lon1, lat2, lon2) 
 }, lat1 = Cyclistic_df$start_lat, lon1 = Cyclistic_df$start_lng, lat2 = Cyclistic_df$end_lat, lon2 = Cyclistic_df$end_lng)
 # Now the Cyclistic_df will have a new column 'distance_traveled' with the distances in miles.
 
-view(Cyclistic_df)
+str(Cyclistic_df)
+summary(Cyclistic_df$start_lat)
+summary(Cyclistic_df$start_lng)
+summary(Cyclistic_df$end_lat)
+summary(Cyclistic_df$end_lng)
+```
+------------------------------------------------------------------------
 
-# view(Cyclistic_df$distance_traveled_miles)
-# This view only shows the column and not the entire table
+When I attempted to run mean, median, and max distances, I discovered NA values in the end-lat/long data. So I removed NA rows as a new dataframe for this calculation.
+
+> mean(Cyclistic_df$distance_traveled_miles)
+[1] NA
+> median(Cyclistic_df$distance_traveled_miles)
+[1] NA
+> max(Cyclistic_df$distance_traveled_miles)
+[1] NA
+> summary(Cyclistic_df$start_lat)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  41.64   41.88   41.90   41.90   41.93   45.64 
+> summary(Cyclistic_df$start_lng)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -87.92  -87.66  -87.64  -87.65  -87.63  -73.80 
+> summary(Cyclistic_df$end_lat)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   0.00   41.88   41.90   41.90   41.93   42.37    8862 
+> summary(Cyclistic_df$end_lng)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+ -88.16  -87.66  -87.64  -87.65  -87.63    0.00    8862 
+
+```{r remove-na, eval=FALSE, include=TRUE}
+
+# Removing rows with NA values
+`Cyclistic_df_No_NA <- na.omit(Cyclistic_df)`
+
+summary(Cyclistic_df_No_NA$start_lat)
+summary(Cyclistic_df_No_NA$start_lng)
+summary(Cyclistic_df_No_NA$end_lat)
+summary(Cyclistic_df_No_NA$end_lng)
+
+# Explore the df: What are the mean, median, min, and max?
+`mean(Cyclistic_df_No_NA$distance_traveled_miles)`
+`median(Cyclistic_df_No_NA$distance_traveled_miles)`
+`max(Cyclistic_df_No_NA$distance_traveled_miles)`
+
+`view(sqldf("select * from Cyclistic_df_No_NA where distance_traveled_miles > 6100"))`
+
+```
+
+------------------------------------------------------------------------
+
+After removing NA, I still found oddities that didn't make sense. Several rides were over 6,100 miles in 15 minutes. That is impossible. After looking at the data, I found these rides had start lat/longs but '0' for ending lat/longs. To solve this I created a second dataframe (preserving the former in case something went wrong, which it did because I had == instead of !=).
+
+```{r remove-zeros, eval=FALSE, include=TRUE}
+# Removing rows with 0 values in the lat long columns.
+Cyclistic_df_No_Zero <- Cyclistic_df_No_NA[Cyclistic_df_No_NA$start_lat != 0 & Cyclistic_df_No_NA$start_lng != 0 & Cyclistic_df_No_NA$end_lat != 0 & Cyclistic_df_No_NA$end_lng != 0,]
+
+summary(Cyclistic_df_No_Zero$start_lat)
+summary(Cyclistic_df_No_Zero$start_lng)
+summary(Cyclistic_df_No_Zero$end_lat)
+summary(Cyclistic_df_No_Zero$end_lng)
+
+# Explore the df: What are the mean, median, min, and max?
+mean(Cyclistic_df_No_Zero$distance_traveled_miles)
+
+median(Cyclistic_df_No_Zero$distance_traveled_miles)
+
+max(Cyclistic_df_No_Zero$distance_traveled_miles)
+
+```
+
+------------------------------------------------------------------------
+
+With NA and 0 values removed, I can run the results. 
+
+> summary(Cyclistic_df_No_Zero$start_lat)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  41.65   41.88   41.90   41.90   41.93   45.64 
+> summary(Cyclistic_df_No_Zero$start_lng)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -87.84  -87.66  -87.64  -87.64  -87.63  -73.80 
+> summary(Cyclistic_df_No_Zero$end_lat)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  41.65   41.88   41.90   41.90   41.93   42.06 
+> summary(Cyclistic_df_No_Zero$end_lng)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -87.84  -87.66  -87.64  -87.65  -87.63  -87.53 
+ 
+ Which then gave me the three figures I was seeking.
+ 
+ > mean(Cyclistic_df_No_Zero$distance_traveled_miles)
+[1] 1.291893
+> 
+> median(Cyclistic_df_No_Zero$distance_traveled_miles)
+[1] 0.9647673
+> 
+> max(Cyclistic_df_No_Zero$distance_traveled_miles)
+[1] 739.9625
+
+```{r distance-figures, eval=FALSE, include=TRUE}
 
 # Explore the df: What are the mean, median, min, and max?
 mean(Cyclistic_df$distance_traveled_miles)

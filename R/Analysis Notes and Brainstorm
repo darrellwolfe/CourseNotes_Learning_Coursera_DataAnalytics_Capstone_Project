@@ -4,17 +4,13 @@ How do Members use Cyclistic vs Casual Riders?
 X- Ride Length
   - Members have shorter rides.
 
-- Who rides more often?
+x- Who rides more often?
   - We can get a total members vs casual, but not a rider by rider with this data.
+  - Members don't ride as far on individual rides, but they ride far more miles (which means far more often) total.
 
-- Who rides farthest distance?
-  - 
-
-- Are there time of day preferences?
-
-- Are they day of week preferences?
-
-- Are there month of year/season of year preferences?
+x- Who rides farthest distance?
+  - R work complete, importing to Tableau
+  - Casual are farthest on individual rides, members farther in total miles
 
 X- Are there opportunities for new stations that could increase new memberships
   - Specifically, are members frequently stopping and starting at particular non-station hot-spots?
@@ -24,7 +20,11 @@ X- Are there opportunities for new stations that could increase new memberships
   Focus the ad campagin on the city, specifically in higher income areas.
   
   
-  
+- Are there time of day preferences?
+
+- Are they day of week preferences?
+
+- Are there month of year/season of year preferences?  
   
   
   

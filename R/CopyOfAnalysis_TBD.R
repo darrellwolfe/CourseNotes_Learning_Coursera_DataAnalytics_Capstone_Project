@@ -30,7 +30,7 @@ Cyclistic_df <- sqlFetch(connection, "dbo.Cyclistic_divvy_tripdata")
 
 
 # OPTIONAL: WRITE ONE OR MORE DATA VIEWS AS CSVs
-write.csv(Cyclistic_df, "C:/Users/darre/OneDrive/Documents/!Datasets/Cyclistic_divvy_tripdata CSVs/Final Dataset/Cyclistic_df.csv", row.names = FALSE)
+# write.csv(Cyclistic_df, "C:/Users/darre/OneDrive/Documents/!Datasets/Cyclistic_divvy_tripdata CSVs/Final Dataset/Cyclistic_df.csv", row.names = FALSE)
 
 
 # Explore the df: Column Names
@@ -38,9 +38,6 @@ colnames(Cyclistic_df)
 
 # Explore the df: Structure
 str(Cyclistic_df)
-
-# Explore the df: Row Count == How Many ride-id's are there?
-total_rides <- nrow(Cyclistic_df)
 
 # Explore the df: What are the mean, median, min, and max?
 mean(Cyclistic_df$ride_length)
