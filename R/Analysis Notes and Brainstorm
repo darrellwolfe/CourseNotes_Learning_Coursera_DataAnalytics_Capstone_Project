@@ -1,14 +1,37 @@
 
 How do Members use Cyclistic vs Casual Riders?
-- Ride Length (Members have shorter rides)
-- Who rides more often?
-- Who rides farthest distance?
-- Are there time of day preferences?
-- Are they day of week preferences?
-- Are there month of year/season of year preferences?
-- Are there opportunities for new stations that could increase new memberships
-  - Specifically, are members frequently stopping and starting at particular non-station hot-spots?
 
+X- Ride Length
+  - Members have shorter rides.
+
+- Who rides more often?
+  - We can get a total members vs casual, but not a rider by rider with this data.
+
+- Who rides farthest distance?
+  - 
+
+- Are there time of day preferences?
+
+- Are they day of week preferences?
+
+- Are there month of year/season of year preferences?
+
+X- Are there opportunities for new stations that could increase new memberships
+  - Specifically, are members frequently stopping and starting at particular non-station hot-spots?
+  - Actually - The data told a new story. Rather than focus on "new stations", 
+  I think we'll be focusing on building awareness at existing stations that meet the criteria of how members use them.
+  Members mostly use stations inside the city whereas casual riders use them near tourist locations.
+  Focus the ad campagin on the city, specifically in higher income areas.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+## Original Brain Storming
 
 Brain storming... with fellow data nerds.
 

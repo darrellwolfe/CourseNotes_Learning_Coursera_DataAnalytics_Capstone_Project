@@ -500,9 +500,9 @@ install.packages("odbc")
 install.packages("RODBC")
 install.packages("tidyverse")
 install.packages("ggplot2")
+install.packages("geosphere")
 
 ```
-
 
 ------------------------------------------------------------------------
 
@@ -511,6 +511,7 @@ install.packages("ggplot2")
 Load the libraries, Establish a Connection, Assign an alias to the database table.
 
 ```{r library, eval=TRUE, include=TRUE}
+# LOAD LIBRARIES
 library(DBI)
 library(odbc)
 library(RODBC)
@@ -518,6 +519,8 @@ library(tidyverse)
 library(dplyr)
 library(ggplot2)
 library(scales)
+library(geosphere)
+
 
 connection <- odbcDriverConnect("driver={SQL Server};server=LAPTOP-76LHVPRQ\\SQLEXPRESS;database=Coursera_Capstone_Project;trusted_connection=true")
 
@@ -528,7 +531,6 @@ Cyclistic_df <- sqlFetch(connection, "dbo.Cyclistic_divvy_tripdata")
 # One of the quirks of R is that some items you expect to work `=` require double `==`.
 # Backslashes must be doubled `\` becomes `\\`. I also learned changing them to forward slashes works as well for CSV file paths.
 ```
-
 
 *Note: At first, this code would not work, I checked my resources, and found that even though the actual file path has one backslash, the R code required a double backslash, in much the same way it requires `==` when using logical code.*
 
@@ -591,7 +593,6 @@ colnames(Cyclistic_df)
 str(Cyclistic_df)
 ```
 
-
 ------------------------------------------------------------------------
 
 ##### Analysis: High Level Overview
@@ -638,20 +639,17 @@ Cyclistic_df %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
 ```
 
-
 ```{r mean-ride, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual) %>%
   summarise(mean_ride_length = mean(ride_length, na.rm = TRUE))
 ```
 
-
 ```{r median-ride, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual) %>%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))
 ```
-
 
 ------------------------------------------------------------------------
 
@@ -669,7 +667,6 @@ Cyclistic_df %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
 ```
 
-
 ```{r mean-ride-day, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, day_of_week) %>%
@@ -682,7 +679,6 @@ Cyclistic_df %>%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))
 ```
 
-
 ------------------------------------------------------------------------
 
 ##### Analysis: Ride Length by Member vs Casual, split by Rideable Type
@@ -693,13 +689,11 @@ Cyclistic_df %>%
 
 -   Median:
 
-
 ```{r max-ride-type, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
   group_by(member_casual, rideable_type) %>%
   summarise(max_ride_length = max(ride_length, na.rm = TRUE))
 ```
-
 
 ```{r mean-ride-type, eval=TRUE, include=TRUE}
 Cyclistic_df %>%
@@ -713,7 +707,6 @@ Cyclistic_df %>%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))
 ```
 
-
 ------------------------------------------------------------------------
 
 ##### Analysis: Ride Length by Member vs Casual, Split by Month & Season
@@ -723,7 +716,6 @@ Cyclistic_df %>%
 -   Mean:
 
 -   Median:
-
 
 ```{r view-data, eval=FALSE, include=TRUE}
 
@@ -759,7 +751,6 @@ Members_Month_Median <- Cyclistic_df %>%
 
 ```
 
-
 ------------------------------------------------------------------------
 
 ##### Analysis: Plot Point Graph using dataframes
@@ -769,7 +760,6 @@ Members_Month_Median <- Cyclistic_df %>%
 -   Mean:
 
 -   Median:
-
 
 ```{r ggplot-max, eval=TRUE, include=TRUE}
 ggplot(data = Members_Month_MAX) +
@@ -788,9 +778,6 @@ ggplot(data = Members_Month_Median) +
   #  geom_smooth(mapping = aes(x = season, y = median_ride_length, color = member_casual), method = lm, se = FALSE)
 ```
 
-
-
-
 ------------------------------------------------------------------------
 
 ##### Analysis: Bar Chart graph using dataframes
@@ -803,12 +790,12 @@ ggplot(Cyclistic_df, aes(x = member_casual)) +
   geom_text(aes(label = sprintf("%s", comma(..count..))), stat = 'count', vjust = -0.5)
 ```
 
-
 ------------------------------------------------------------------------
 
 ##### Analysis: Save Images
 
 This saves the final product as an image to work with later.
+
 ```{r save-images, eval=FALSE, include=TRUE}
 ggsave("Mean_Ride_Length.jpg")
 ggsave("Max_Ride_Length.jpg")
@@ -816,13 +803,77 @@ ggsave("Median_Ride_Length.jpg")
 ggsave("Bar_Members_vs_Casual.jpg")
 ```
 
+##### Analysis: Stations used by Members vs Casual riders
 
+When viewing the data I found several interesting points of reference.
 
-
-##### Analysis:
+-   When the entire dataset is viewed in map, Members and Casual riders use the basic regions, no clear region stood out.
+-   When the data is looked at closer; however, most stations (and non-stations) have fewer than 1% of the total stops/starts.
+-   By filtering for the top 25 stations, a trend appears by comparing bar charts and mapped data in Tableau.
+    -   Casual Riders: Use the stations closer to the water and tourist attractions.
+    -   Members most frequently use the stations further inland in major urban areas.
+    -   With this, we can suggest that we focus on casual riders at the stations most used by members in these inland areas, and specifically start with a pilot at one station showing promise.
 
 ```{r eval=FALSE, include=TRUE}
+stations_df <- sqldf("select
+          start_station_name as station_name, 
+          start_station_id as station_id,
+          start_lat as lat,
+          start_lng as long,
+          member_casual,
+          count(start_station_name) as station_stops
+       from Cyclistic_df 
+       group by
+          start_station_name, 
+          start_station_id,
+          start_lat,
+          start_lng,
+          member_casual
 
+      union
+
+                    select
+          end_station_name as station_name, 
+          end_station_id as station_id,
+          end_lat as lat,
+          end_lng as long,
+          member_casual,
+          count(end_station_name) as station_stops
+       from Cyclistic_df 
+       group by
+          end_station_name, 
+          end_station_id,
+          end_lat,
+          end_lng,
+          member_casual
+ 
+      order by station_stops desc")
+
+```
+
+##### Analysis: Farthest Distance Traveled
+
+
+
+```{r eval=FALSE, include=TRUE}
+# Distance in Miles
+# Applying the distance calculation to each row and converting to miles
+Cyclistic_df$distance_traveled_miles <- mapply(function(lat1, lon1, lat2, lon2) {
+  distHaversine(c(lon1, lat1), c(lon2, lat2)) * 0.000621371
+}, lat1 = Cyclistic_df$start_lat, lon1 = Cyclistic_df$start_lng, lat2 = Cyclistic_df$end_lat, lon2 = Cyclistic_df$end_lng)
+# Now the Cyclistic_df will have a new column 'distance_traveled' with the distances in miles.
+
+view(Cyclistic_df)
+
+# view(Cyclistic_df$distance_traveled_miles)
+# This view only shows the column and not the entire table
+
+# Explore the df: What are the mean, median, min, and max?
+mean(Cyclistic_df$distance_traveled_miles)
+
+median(Cyclistic_df$distance_traveled_miles)
+
+max(Cyclistic_df$distance_traveled_miles)
 
 ```
 
@@ -839,16 +890,6 @@ ggsave("Bar_Members_vs_Casual.jpg")
 
 
 ```
-
-##### Analysis:
-
-```{r eval=FALSE, include=TRUE}
-
-
-```
-
-
-
 
 ------------------------------------------------------------------------
 
@@ -861,8 +902,6 @@ So far...
 Members ride way more often for way shorter distances, and their highest usage is June, July, and August, with a taper effect on either side, May/September.
 
 I'll still be looking at more slices. But so far, it looks like a Campaign from May to September, with a focus on casual riders who do shorter rides more frequently.
-
-
 
 ------------------------------------------------------------------------
 
