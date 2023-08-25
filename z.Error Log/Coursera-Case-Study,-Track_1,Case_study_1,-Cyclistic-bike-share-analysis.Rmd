@@ -18,17 +18,18 @@ output: html_document
 
 The following is my Capstone Project for the Google Data Analytics Certification. The following links will take you to further information if you want to dive even deeper into the full case-study.
 
-**Portfolio: [ToposCreative.com: Darrell's Portfolio Site](https://www.toposcreative.com/p/portfolio.html "ToposCreative.com: Darrell's Portfolio Site")**
 
--   **Full [Google Slides Presentation](https://docs.google.com/presentation/d/1NyPH9GfiZCNFD2Blrah0bbqqOQV1-QA1qja9m3Oug4E/edit?usp=sharing "Google Slides Presentation")**
+LinkTree: Portfolios and Bio
+https://linktr.ee/darrellwolfe
 
--   **Tableau: [Tableau Capstone Presentation](https://public.tableau.com/app/profile/darrell.wolfe/viz/Capstone_MembervsCasual_Station_Usage/TotalRidesTime "Tableau Capstone Presentation")**
 
--   **Capstone Project (detailed Analysis): [Cyclistic Membership Campaign \| A Coursera Capstone Case-Study, Track_1,Case_study_1, Cyclistic-bike-share-analysis](https://www.toposcreative.com/p/cyclistic-membership-campaign-coursera.html "Cyclistic Membership Campaign | A Coursera Capstone Case-Study, Track_1,Case_study_1, Cyclistic-bike-share-analysis")**
+GitHub_Repo: Coursera_Capstone_Project
+https://github.com/darrellwolfe/Coursera_Capstone_Project
 
--   **GitHub_Repo: [Coursera_Capstone_Project](https://github.com/darrellwolfe/Coursera_Capstone_Project "Coursera_Capstone_Project")**
+Tableau Presentation
+https://public.tableau.com/app/profile/darrell.wolfe/viz/Capstone_MembervsCasual_Station_Usage/TotalRidesTime
 
-**LinkTree: [Portfolios and Bio](https://linktr.ee/darrellwolfe "Portfolios and Bio")**
+
 
 ### Coursera-Case Study, Track_1,Case_study_1, Cyclistic-bike-share-analysis
 
@@ -262,17 +263,17 @@ CREATE TABLE [dbo].[Cyclistic_divvy_tripdata] (
 
 #### 3. Importing the CSVs into the database
 
-To accomplish this step, I ran a BULK INSERT in SQL via Visual Studio 2022, replacing each `FROM` line with the directions to the individual CSVs. After checking with my resources, I did find a way to use Power Shell to automated this; however, I didn't understand it well enough for this task. I'll be working on learning Power Shell commands for future use.
+To accomplish this step, I ran a BULK INSERT in SQL via Visual Studio 2022, replacing each `FROM` line with the directions to the individual CSVs. After checking with my resources, I did find a way to use Power Shell to automated this; however, I didn't understand it well enough for this task. I'll be working on learing Power Shell commands for future use.
 
 *Tools/Languages: Visual Studio 2022, SQL, CSVs*
 
-**Notes about RStudio, SQL, and why I worked with Visual Studio 2022 for this step.** *I originally started this step inside RStudio with a connection to the database and new table. However, I found that RStudio (at least with my current settings) would not indicate whether the SQL script was still running. A short hardly-noticeable flash would be the only indication the script was complete. Because of this, I frequently found myself trying to run the next script and getting an error that the connection was busy. Because of this, I also couldn't run a query to see if the newest data was present (because the connection was still busy writing it). Due to this ambiguity, I found that it was easier use Visual Studio 2022 to write the CSVs into the database, as it is designed for exactly this type of task.*
+**Notes about RStudio, SQL, and why I worked with Visual Studio 2022 for this step.** *I originally started this step inside RStudio with a connection to the database and new table. However, I found that RStudio (at least with my current settings) would not indicate whether the SQL script was still running. A short hardly-noticable flash would be the only indication the script was complete. Because of this, I frequently found myself trying to run the next script and getting an error that the connection was busy. Because of this, I also couldn't run a query to see if the newest data was present (because the connection was still busy writing it). Due to this ambiguity, I found that it was easier use Visual Studio 2022 to write the CSVs into the database, as it is designed for exactly this type of task.*
 
 I ran into two separate issues inserting the data into the new table.
 
 1.  Duplicate data broke my Primary Key, so I rebuilt the table without it and sorted out duplicate data in subsequent steps.
 
-2.  CSV formatting `m/d/yyyy hh:mm`. In the first several CSVs, this was the native custom formatting for the columns `started_at` and `ended_at` as they came from the downloads. However, several subsequent CSVs were formatted as "General" without this custom formatting. As a result, the SQL script would code an error for mismatched types. To solve this issue, I copied the formatting into these CSVs, re-saved, and re-ran the scripts with no errors.
+2.  CSV formatting `m/d/yyyy hh:mm`. In the first several CSVs, this was the native custom formatting for the columns `started_at` and `ended_at` as they came from the downloads. However, several subsequent CSVs were formatted as "General" without this custom formatting. As a result, the SQL script would code an error for mismatched types. To solve this issue, I copied the fomratting into these CSVs, resaved, and re-ran the scripts with no errors.
 
 -   Sometimes this was caused by the ride_id showing up in one month because it "started" in that month but the ride ended the next day in the next month. The insertion process also caused several NULL rows. Both were sorted out in subsequent steps.
 
@@ -350,7 +351,7 @@ FROM 'C:\Users\darre\OneDrive\Documents\!Datasets\Cyclistic_divvy_tripdata CSVs\
 
 ### Transformations & Clean Up
 
-With all the data reviewed and imported in previous steps, I began adding transformations and clean up steps that would make the data easier to work with. After having issues with the Primary Key in previous steps, I set out to remove duplicates and NULLs from the dataset. I then began working with my data to add relevant extrapolations from the existing material.
+With all the data reviewed and imported in previous steps, I began adding transformations and clean up steps that would make the data easier to work with. After having issues with the Primary Key in previous steps, I set out to remove duplcates and NULLs from the dataset. I then began working with my data to add relevant extrapolations from the existing material.
 
 Still working in SQL inside of Visual Studio 2022, I worked through the following transformations.
 
@@ -501,7 +502,7 @@ When working with RStudio connected to a live database, you can open SQL Scripts
 
 #### Establishing a database connection in RStudio
 
-These packages are not all required for the connection, but were eventually helpful in my analysis, so if you are repeating these steps, you will want to use them.
+These packages are not all required for the connection, but were evetually helpful in my analysis, so if you are repeating these steps, you will want to use them.
 
 ------------------------------------------------------------------------
 
@@ -1027,9 +1028,9 @@ In order to answer the ultimate question about "How do annual members and casual
 
 ------------------------------------------------------------------------
 
-#### Summarizing the findings
+#### Summarising the findings
 
-The data for Cyclistic shows that there were over 8 million individual rides between January 2022 and July 2023, centering in in Chicago IL.
+The data for Cyclistic shows that there were over 8 million individual rides between January 2022 and July 2023, centering in in Chigaco IL.
 
 Of that total, 60.50% were Member rides, riding 4.9 million rides over casual user's 3.2 million rides.
 
@@ -1049,7 +1050,7 @@ Members ride more often than Casual riders but for shorter distances, and their 
 
 ------------------------------------------------------------------------
 
-##### Recommendations
+##### Reccomendations
 
 Extrapolating from these findings, if Casual riders ride longer rides but Member riders make up far more total distance, then Member riders are riding far more often but for shorter distances.
 

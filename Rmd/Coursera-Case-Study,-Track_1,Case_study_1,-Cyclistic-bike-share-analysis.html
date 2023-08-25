@@ -360,6 +360,23 @@ Track_1,Case_study_1, Cyclistic-bike-share-analysis</h3>
 
 <div id="capstone-project" class="section level2">
 <h2>Capstone Project</h2>
+<p>The following is my Capstone Project for the Google Data Analytics
+Certification. The following links will take you to further information
+if you want to dive even deeper into the full case-study.</p>
+<p><strong>Portfolio: <a href="https://www.toposcreative.com/p/portfolio.html" title="ToposCreative.com: Darrell&#39;s Portfolio Site">ToposCreative.com:
+Darrell’s Portfolio Site</a></strong></p>
+<ul>
+<li><p><strong>Full <a href="https://docs.google.com/presentation/d/1NyPH9GfiZCNFD2Blrah0bbqqOQV1-QA1qja9m3Oug4E/edit?usp=sharing" title="Google Slides Presentation">Google Slides
+Presentation</a></strong></p></li>
+<li><p><strong>Tableau: <a href="https://public.tableau.com/app/profile/darrell.wolfe/viz/Capstone_MembervsCasual_Station_Usage/TotalRidesTime" title="Tableau Capstone Presentation">Tableau Capstone
+Presentation</a></strong></p></li>
+<li><p><strong>Capstone Project (detailed Analysis): <a href="https://www.toposcreative.com/p/cyclistic-membership-campaign-coursera.html" title="Cyclistic Membership Campaign | A Coursera Capstone Case-Study, Track_1,Case_study_1, Cyclistic-bike-share-analysis">Cyclistic
+Membership Campaign | A Coursera Capstone Case-Study,
+Track_1,Case_study_1,
+Cyclistic-bike-share-analysis</a></strong></p></li>
+<li><p><strong>GitHub_Repo: <a href="https://github.com/darrellwolfe/Coursera_Capstone_Project" title="Coursera_Capstone_Project">Coursera_Capstone_Project</a></strong></p></li>
+</ul>
+<p><strong>LinkTree: <a href="https://linktr.ee/darrellwolfe" title="Portfolios and Bio">Portfolios and Bio</a></strong></p>
 <div id="coursera-case-study-track_1case_study_1-cyclistic-bike-share-analysis" class="section level3">
 <h3>Coursera-Case Study, Track_1,Case_study_1,
 Cyclistic-bike-share-analysis</h3>
@@ -412,10 +429,10 @@ customer types are using Cyclistic bikes.</p>
 <li>Microsoft Excel</li>
 <li>Microsoft Power Query (Excel)</li>
 <li>Microsoft Data Model + DAX</li>
-<li>Microsoft Power Pivot<br />
-</li>
+<li>Microsoft Power Pivot</li>
 <li>Microsoft SQL Server Express</li>
 <li>Microsoft Visual Studio 2022</li>
+<li>Microsoft Power Point</li>
 <li>Google Big Query (attempted, not used)</li>
 <li>Posit RStudio</li>
 <li>Tableau Public 2.1</li>
@@ -701,7 +718,7 @@ CREATE TABLE [dbo].[Cyclistic_divvy_tripdata] (
 2022, replacing each <code>FROM</code> line with the directions to the
 individual CSVs. After checking with my resources, I did find a way to
 use Power Shell to automated this; however, I didn’t understand it well
-enough for this task. I’ll be working on learing Power Shell commands
+enough for this task. I’ll be working on learning Power Shell commands
 for future use.</p>
 <p><em>Tools/Languages: Visual Studio 2022, SQL, CSVs</em></p>
 <p><strong>Notes about RStudio, SQL, and why I worked with Visual Studio
@@ -709,7 +726,7 @@ for future use.</p>
 RStudio with a connection to the database and new table. However, I
 found that RStudio (at least with my current settings) would not
 indicate whether the SQL script was still running. A short
-hardly-noticable flash would be the only indication the script was
+hardly-noticeable flash would be the only indication the script was
 complete. Because of this, I frequently found myself trying to run the
 next script and getting an error that the connection was busy. Because
 of this, I also couldn’t run a query to see if the newest data was
@@ -728,7 +745,7 @@ CSVs, this was the native custom formatting for the columns
 downloads. However, several subsequent CSVs were formatted as “General”
 without this custom formatting. As a result, the SQL script would code
 an error for mismatched types. To solve this issue, I copied the
-fomratting into these CSVs, resaved, and re-ran the scripts with no
+formatting into these CSVs, re-saved, and re-ran the scripts with no
 errors.</p></li>
 </ol>
 <ul>
@@ -829,7 +846,7 @@ data</em></h5>
 <p>With all the data reviewed and imported in previous steps, I began
 adding transformations and clean up steps that would make the data
 easier to work with. After having issues with the Primary Key in
-previous steps, I set out to remove duplcates and NULLs from the
+previous steps, I set out to remove duplicates and NULLs from the
 dataset. I then began working with my data to add relevant
 extrapolations from the existing material.</p>
 <p>Still working in SQL inside of Visual Studio 2022, I worked through
@@ -991,7 +1008,7 @@ will present below.</p>
 <div id="establishing-a-database-connection-in-rstudio" class="section level4">
 <h4>Establishing a database connection in RStudio</h4>
 <p>These packages are not all required for the connection, but were
-evetually helpful in my analysis, so if you are repeating these steps,
+eventually helpful in my analysis, so if you are repeating these steps,
 you will want to use them.</p>
 <hr />
 <div id="install-packages" class="section level5">
@@ -1558,28 +1575,95 @@ mean(Cyclistic_df$distance_traveled_miles)
 median(Cyclistic_df$distance_traveled_miles)
 
 max(Cyclistic_df$distance_traveled_miles)</code></pre>
-</div>
-<div id="analysis" class="section level5">
-<h5>Analysis:</h5>
-</div>
-<div id="analysis-1" class="section level5">
-<h5>Analysis:</h5>
 <hr />
 </div>
 </div>
 </div>
-<div id="anaylisis-conclusions" class="section level3">
-<h3>Anaylisis Conclusions</h3>
-<div id="pending-review-taking-notes-as-as-i-go-to-be-re-written-and-finalized" class="section level5">
-<h5><em>Pending Review… taking notes as as I go… to be re-written and
-finalized…</em></h5>
-<p>So far…</p>
-<p>Members ride way more often for way shorter distances, and their
-highest usage is June, July, and August, with a taper effect on either
-side, May/September.</p>
-<p>I’ll still be looking at more slices. But so far, it looks like a
-Campaign from May to September, with a focus on casual riders who do
-shorter rides more frequently.</p>
+<div id="analysis-tableau" class="section level3">
+<h3>Analysis: Tableau</h3>
+<p>After exporting several views from SQL and R into CSV, then importing
+them into Tableau Public, I found several interesting insights.
+Primarily, these insights came from splicing and slicing the data into
+different views, to see if anything visually jumped off the page.</p>
+<p>Click this link to view the: <a href="https://public.tableau.com/app/profile/darrell.wolfe/viz/Capstone_MembervsCasual_Station_Usage/Distances" title="The Tableau Public Presentation">The Tableau Public
+Presentation</a></p>
+<hr />
+</div>
+<div id="analysis-conclusions" class="section level3">
+<h3>Analysis Conclusions</h3>
+<hr />
+<div id="how-do-members-use-cyclistic-vs-casual-riders" class="section level5">
+<h5>How do Members use Cyclistic vs Casual Riders?</h5>
+<p>In order to answer the ultimate question about “How do annual members
+and casual riders utilize Cyclistic bikes differently?”, I asked the
+following sets of questions while doing my analysis.</p>
+<ol style="list-style-type: decimal">
+<li>Ride Length: In each ride instance, who rides longer?
+<ul>
+<li>Members have shorter rides.</li>
+</ul></li>
+<li>Who rides more often?
+<ul>
+<li>Note: We can get a total members vs casual, but not a rider by rider
+with this data.</li>
+<li>Members do not ride as far as casual riders on their individual
+rides instances.</li>
+</ul></li>
+<li>Who rides farthest distance?
+<ul>
+<li>Casual rides are farthest on given individual ride instances</li>
+<li>Members farther in total miles cumulatively.</li>
+</ul></li>
+<li>Are there opportunities for new stations that could increase new
+memberships?
+<ul>
+<li>Specifically, are members frequently stopping and starting at
+particular non-station hot-spots?</li>
+<li>Actually - The data told a new story. Rather than focus on “new
+stations”, I think we should focus on building awareness at existing
+stations that meet the criteria of how members use them.</li>
+<li>Members mostly use stations inside the city whereas casual riders
+use them near tourist locations. Focus the ad campaign on the city,
+specifically in higher income areas.</li>
+<li>Later, if we find this method of targeting casual riders who fit
+member patterns, we could expand the campaign to target new station
+areas that fit these patterns, but this would not be a wise use of
+investment at this stage.</li>
+</ul></li>
+<li>Total Rides and Total Rides by Member vs Casual
+<ul>
+<li>There were over 8 million individual rides between January 2022 and
+July 2023.</li>
+<li>Of that total, 60.50% were Member rides, riding 4.9 million rides
+over casual user’s 3.2 million rides.</li>
+<li>Extrapolating from the previous data, if Casual riders ride longer
+rides but Member riders make up far more total distance, then Member
+riders are riding far more often but for shorter distances.</li>
+<li>This means, we can target casual riders who fit the pattern of
+frequent shorter rides as a prime target for the campaign.</li>
+</ul></li>
+<li>Are there time of day preferences?
+<ul>
+<li>Members and casual riders follow a similar pattern of a slow
+increase in the morning, maxing at mid-day and decrease into the
+evening.</li>
+<li>However, Members are significantly more active than casual members
+between 6a and 8a.</li>
+</ul></li>
+<li>Are they day of week preferences?
+<ul>
+<li>Members ride more often on weekdays.</li>
+<li>Casual riders more often on weekends.</li>
+</ul></li>
+<li>Are there month of year/season of year preferences?
+<ul>
+<li>By viewing rides over time, there is a steep drop off in total use
+during winter months an increase in spring, leading to a max in summer
+and decrease in fall.</li>
+<li>That being said, members do continue to use the service in winter at
+a higher rate than casual members.</li>
+</ul></li>
+</ol>
 <hr />
 </div>
 </div>
@@ -1590,26 +1674,74 @@ shorter rides more frequently.</p>
 <h5>Guiding questions</h5>
 <ul>
 <li>Were you able to answer the question of how annual members and
-casual riders use Cyclistic bikes differently? ● What story does your
-data tell? ● How do your findings relate to your original question? ●
-Who is your audience? What is the best way to communicate with them? ●
-Can data visualization help you share your findings? ● Is your
-presentation accessible to your audience?</li>
+casual riders use Cyclistic bikes differently?</li>
+<li>What story does your data tell?</li>
+<li>How do your findings relate to your original question?</li>
+<li>Who is your audience? What is the best way to communicate with
+them?</li>
+<li>Can data visualization help you share your findings?</li>
+<li>Is your presentation accessible to your audience?</li>
 </ul>
 </div>
 <div id="key-tasks-4" class="section level5">
 <h5>Key tasks</h5>
 <ol style="list-style-type: decimal">
-<li><ol style="list-style-type: decimal">
-<li>Determine the best way to share your findings. 2. Create effective
-data visualizations. 3. Present your findings. 4. Ensure your work is
-accessible.</li>
-</ol></li>
+<li>Determine the best way to share your findings.</li>
+<li>Create effective data visualizations.</li>
+<li>Present your findings.</li>
+<li>Ensure your work is accessible.</li>
 </ol>
 </div>
 <div id="deliverablesupporting-visualizations-and-key-findings" class="section level5">
 <h5><em>Deliverable:Supporting visualizations and key findings</em></h5>
 <hr />
+</div>
+<div id="summarizing-the-findings" class="section level4">
+<h4>Summarizing the findings</h4>
+<p>The data for Cyclistic shows that there were over 8 million
+individual rides between January 2022 and July 2023, centering in in
+Chicago IL.</p>
+<p>Of that total, 60.50% were Member rides, riding 4.9 million rides
+over casual user’s 3.2 million rides.</p>
+<div id="distance-and-time" class="section level5">
+<h5>Distance and time</h5>
+<p>Casual riders go farther given individual ride instances; however,
+Members ride farther in total miles cumulatively.</p>
+<p>Members mostly use stations inside the city but in affluent areas;
+whereas, casual riders use them near tourist locations, specifically
+near the water in Chicago.</p>
+</div>
+<div id="date-and-time" class="section level5">
+<h5>Date and time</h5>
+<p>Members and casual riders follow a similar pattern of a slow increase
+in the morning, maxing at mid-day and decrease into the evening.
+However, Members are significantly more active than casual members
+between 6a and 8a.</p>
+<p>Members ride more often on weekdays.Casual riders more often on
+weekends.</p>
+<p>Members ride more often than Casual riders but for shorter distances,
+and their highest usage is in Summer(June, July, and August), with a
+taper effect on either side, in Spring (May) and in Fall (September).
+That being said, members do continue to use the service in winter at a
+higher rate than casual members.</p>
+<hr />
+</div>
+<div id="recommendations" class="section level5">
+<h5>Recommendations</h5>
+<p>Extrapolating from these findings, if Casual riders ride longer rides
+but Member riders make up far more total distance, then Member riders
+are riding far more often but for shorter distances.</p>
+<p>This means, we can target casual riders who fit the pattern of
+frequent shorter rides as a prime target for the campaign.</p>
+<p>We should focus the ad campaign on the inner city regions,
+specifically in higher income areas.</p>
+<p>Later, if we find this method of targeting casual riders who fit
+member patterns effective, we could expand the campaign to target new
+station areas that fit these patterns, or even develop new stations not
+currently used by members, but this would be a premature investment at
+this stage.</p>
+<hr />
+</div>
 </div>
 </div>
 <div id="act" class="section level2">
@@ -1617,30 +1749,41 @@ accessible.</li>
 <div id="guiding-questions-5" class="section level5">
 <h5>Guiding questions</h5>
 <ul>
-<li>What is your final conclusion based on your analysis? ● How could
-your team and business apply your insights? ● What next steps would you
-or your stakeholders take based on your findings? ● Is there additional
-data you could use to expand on your findings?</li>
+<li>What is your final conclusion based on your analysis?</li>
+<li>How could your team and business apply your insights?</li>
+<li>What next steps would you or your stakeholders take based on your
+findings?</li>
+<li>Is there additional data you could use to expand on your
+findings?</li>
 </ul>
 </div>
 <div id="key-tasks-5" class="section level5">
 <h5>Key tasks</h5>
 <ol style="list-style-type: decimal">
-<li><ol style="list-style-type: decimal">
-<li>Create your portfolio. 2. Add your case study. 3. Practice
-presenting your case study to a friend or family member.</li>
-</ol></li>
+<li>Create your portfolio.</li>
+<li>Add your case study.</li>
+<li>Practice presenting your case study to a friend or family
+member.</li>
 </ol>
 </div>
 <div id="deliverableyour-top-three-recommendations-based-on-your-analysis" class="section level5">
 <h5><em>Deliverable:Your top three recommendations based on your
 analysis</em></h5>
 <hr />
+<p>For my conclusions see above and the following link to my profile and
+case study:</p>
+</div>
+<div id="portfolio-data-analyst-data-visualization-data-storytelling" class="section level3">
+<h3><a href="https://www.toposcreative.com/p/portfolio.html" title="Portfolio: Data Analyst, Data Visualization, Data Storytelling">Portfolio:
+Data Analyst, Data Visualization, Data Storytelling</a></h3>
+<p><a href="http://www.toposcreative.com/p/cyclistic-membership-campaign-coursera.html" title="Cyclistic Membership Campaign | A Coursera Capstone Case-Study, Track_1,Case_study_1, Cyclistic-bike-share-analysis">Cyclistic
+Membership Campaign | A Coursera Capstone Case-Study,
+Track_1,Case_study_1, Cyclistic-bike-share-analysis</a></p>
 </div>
 </div>
 </div>
-<div id="tbc" class="section level1">
-<h1>TBC…</h1>
+<div id="that-concludes-this-presentation-of-the-data." class="section level1">
+<h1>That concludes this presentation of the data.</h1>
 </div>
 
 

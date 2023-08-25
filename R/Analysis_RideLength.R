@@ -42,6 +42,8 @@ str(Cyclistic_df)
 # Explore the df: Row Count == How Many ride-id's are there?
 total_rides <- nrow(Cyclistic_df)
 
+nrow(Cyclistic_df)
+
 # Explore the df: What are the mean, median, min, and max?
 mean(Cyclistic_df$ride_length)
 
@@ -94,6 +96,11 @@ Cyclistic_df %>%
 Cyclistic_df %>%
   group_by(member_casual, rideable_type) %>%
   summarise(median_ride_length = median(ride_length, na.rm = TRUE))
+
+
+
+
+
 
 
 
